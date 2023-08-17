@@ -33,4 +33,12 @@ public class DataTypeNode extends DataTreeNode {
     public void setTypeOfDataStructure(String typeOfDataStructure) {
         this.typeOfDataStructure = typeOfDataStructure;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + " <- DataTypeNode [typeOfDataStructure=" + typeOfDataStructure + "]";
+    }
+
+    
 }

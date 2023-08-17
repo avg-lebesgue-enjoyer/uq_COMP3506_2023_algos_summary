@@ -14,6 +14,8 @@ public class DataTreeNode implements Serializable {
     private DataTreeNode parent;
     /** Children of this DataTreeNode */
     private Set<DataTreeNode> children;
+    /** Marker for special root node */
+    private boolean root;
 
     // BOILERPLATE METHODS
     /**
@@ -22,6 +24,17 @@ public class DataTreeNode implements Serializable {
     public DataTreeNode() {
         this.parent = null;
         this.children = new LinkedHashSet<>();
+        this.root = false;
+    }
+
+    /**
+     * Construct new DataTreeNode which is a root.
+     * @param root boolean true iff this node is a root
+     */
+    public DataTreeNode(boolean root) {
+        this.parent = null;
+        this.children = new LinkedHashSet<>();
+        this.root = root;
     }
     
     /**
@@ -44,6 +57,21 @@ public class DataTreeNode implements Serializable {
     }
     public void setChildren(Set<DataTreeNode> children) {
         this.children = children;
+    }
+    public boolean isRoot() {
+        return root;
+    }
+    public void setRoot(boolean root) {
+        this.root = root;
+    }
+
+    @Override
+    public String toString() {
+        return "DataTreeNode";
+            //"["
+            //+ "DataTreeNode [parent=" + parent 
+            //+ ", children=" + children.toString() 
+            //+ ", root=" + root + "]";
     }
 
     // HELPER METHODS

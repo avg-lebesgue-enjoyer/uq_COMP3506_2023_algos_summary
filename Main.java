@@ -23,7 +23,7 @@ public class Main {
      * @param args String[] command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Amogus");
+        testSerializationMain(new String[] {});
     }
     
     // TEST METHODS
@@ -79,15 +79,13 @@ public class Main {
             System.err.println(e);
         }
         
+        // Add funny test data
+        DataStructureNode newNode = new DataStructureNode(dataTree.getRoot(), "StaticSequence");
+        dataTree.getRoot().getChildren().add(newNode);
+
         // Check thing is okay
         try {
-            DataTreeNode root = dataTree.getRoot();
-            if (root instanceof DataTypeNode) {
-                DataTypeNode rootTypeNode = (DataTypeNode) root;
-                System.out.println("root stored field " + rootTypeNode.getTypeOfDataStructure());
-            } else {
-                System.err.println("That's bad.");
-            }
+            dataTree.browse();
         } catch (NullPointerException e) {
             System.err.println(e);
         }
