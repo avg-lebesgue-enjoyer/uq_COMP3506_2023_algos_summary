@@ -67,6 +67,9 @@ public class DataTreeNode implements Serializable {
 
     @Override
     public String toString() {
+        if (this.root) {
+            return "DataTreeNode ROOT";
+        }
         return "DataTreeNode";
             //"["
             //+ "DataTreeNode [parent=" + parent 

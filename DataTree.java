@@ -81,11 +81,13 @@ public class DataTree implements Serializable {
                     System.out.println("\t" + cursor.toString());
                     break;
                 case "print_subtree":
+                    System.out.println(">> Subtree from here is:");
                     preorderTraversal(
                             cursor, 
                             (node, padding) -> System.out.println(padding + node.toString()), 
                             ""
                     );
+                    System.out.println("<< end subtree");
                     break;
                 case "add_child":
                     throw new UnsupportedOperationException("haven't implemented yet!");

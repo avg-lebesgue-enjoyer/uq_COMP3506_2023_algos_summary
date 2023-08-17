@@ -16,14 +16,126 @@ public class Main {
     /** AlgoTree to maintain */
     private static AlgoTree algoTree;
     /** filename to algoTree.ser, from AlgosSummary */
-    private static String algoTreeFilename;
-
+    private static String algoTreeFilename = "uq_COMP3506_2023_algos_summary/saved_data/algoTree.ser";
+    /** AlgoDataPairing to maintain */
+    private static AlgoDataPairing pairing;
+    /** filename to pairing.ser, from AlgosSummary */
+    private static final String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
+    
     /**
      * Launch method.
      * @param args String[] command line arguments
      */
     public static void main(String[] args) {
-        testSerializationMain(new String[] {});
+        //testSerializationMain(new String[] {});
+        /*
+        algoTree = new AlgoTree();
+        algoTree.setRoot(null);
+        dataTree = new DataTree();
+        dataTree.setRoot(new DataTreeNode(true));
+        serialise();
+        */
+        deserialise();
+        dataTree.browse();
+        System.out.println("End of main()");
+    }
+
+    // IMPORTANT METHODS
+    
+
+    // HELPER METHODS
+    /**
+     * <p> Serialise {@link Main#dataTree} and {@link Main#algoTree}
+     * <p> TODO: serialise and deserialise AlgoDataPairing.
+     */
+    private static void serialise() {
+        System.out.println("==== SERIALISING... ====");
+        // Serialise dataTree
+        System.out.println("== Serialising dataTree ==");
+        String suffix = "unsuccessfully";
+        try {
+            // Streams
+            FileOutputStream file = new FileOutputStream(dataTreeFilename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            // Write object
+            out.writeObject(dataTree);
+            // Close
+            out.close();
+            file.close();
+            suffix = "successfully";
+        } catch (IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        }
+        System.out.println("~~ dataTree serialisation " + suffix);
+        // Serialise algoTree
+        System.out.println("== Serialising algoTree ==");
+        suffix = "unsuccessfully";
+        try {
+            // Streams
+            FileOutputStream file = new FileOutputStream(algoTreeFilename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            // Write object
+            out.writeObject(algoTree);
+            // Close
+            out.close();
+            file.close();
+            suffix = "successfully";
+        } catch (IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        }
+        System.out.println("~~ algoTree serialisation " + suffix);
+        System.out.println("~~~~ serialisaiton done.");
+    }
+
+    /**
+     * <p> Deserialise {@link Main#dataTree} and {@link Main#algoTree}
+     * <p> TODO: serialise and deserialise AlgoDataPairing.
+     */
+    private static void deserialise() {
+        System.out.println("==== DESERIALISING... ====");
+        // Deserialise dataTree
+        System.out.println("==  Deserialising dataTree ==");
+        String suffix = "unsuccessfully";
+        try {  
+            // Streams
+            FileInputStream file = new FileInputStream(dataTreeFilename);
+            ObjectInputStream in = new ObjectInputStream(file);
+            // Read object
+            dataTree = (DataTree) in.readObject();
+            // Close
+            in.close();
+            file.close();
+            suffix = "successfully";
+        } catch(IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        } catch(ClassNotFoundException e) {
+            System.err.println(e);
+        }
+        System.out.println("~~ dataTree deserialised " + suffix);
+        // Deserialise algoTree
+        System.out.println("==  Deserialising algoTree ==");
+        suffix = "unsuccessfully";
+        try {  
+            // Streams
+            FileInputStream file = new FileInputStream(algoTreeFilename);
+            ObjectInputStream in = new ObjectInputStream(file);
+            // Read object
+            algoTree = (AlgoTree) in.readObject();
+            // Close
+            in.close();
+            file.close();
+            suffix = "successfully";
+        } catch(IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        } catch(ClassNotFoundException e) {
+            System.err.println(e);
+        }
+        System.out.println("~~ algoTree deserialised " + suffix);
+        System.out.println("~~~~ deserialisation done.");
     }
     
     // TEST METHODS
