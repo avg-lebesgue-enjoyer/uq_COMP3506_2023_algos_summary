@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * <p> Tree of data structures and data structure types.
  * @see DataTreeNode
  * @see DataTypeNode
  * @see DataStructureNode
  */
-public class DataTree {
+public class DataTree implements Serializable {
     // MEMBER VARIABLES
     /** Root of this DataTree */
     private DataTreeNode root;

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * @see DataTypeNode
  * @see DataStructureNode
  */
-public class DataTreeNode {
+public class DataTreeNode implements Serializable {
     // MEMBER VARIABLES
     /** Parent of this DataTreeNode */
     private DataTreeNode parent;

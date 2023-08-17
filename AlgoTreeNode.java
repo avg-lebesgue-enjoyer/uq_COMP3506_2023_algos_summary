@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * @see AlgoTypeNode
  * @see AlgorithmNode
  */
-public class AlgoTreeNode {
+public class AlgoTreeNode implements Serializable {
     // MEMBER VARIABLES
     /** Parent of this AlgoTreeNode */
     private AlgoTreeNode parent;
