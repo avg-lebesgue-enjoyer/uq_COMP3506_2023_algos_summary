@@ -1,3 +1,9 @@
+/**
+ * <p> Tree of algorithms and algorithm types.
+ * @see AlgoTreeNode
+ * @see AlgoTypeNode
+ * @see AlgorithmNode
+ */
 public class AlgoTree {
     // MEMBER VARIABLES
     /** Root of this AlgoTree */

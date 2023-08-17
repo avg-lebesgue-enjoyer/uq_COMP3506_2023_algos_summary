@@ -128,5 +128,6 @@ public class AlgorithmNode extends AlgoTreeNode {
     /* TODO:
      *  - Method to get list of all data structures which call this method
      *  - Method to print ^^ in LaTeX
+     *   ^^^ maybe those two methods go in DataTree?
      */
 }

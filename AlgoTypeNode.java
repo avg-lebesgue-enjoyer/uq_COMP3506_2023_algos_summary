@@ -25,6 +25,4 @@ public class AlgoTypeNode extends AlgoTreeNode {
     public void setTypeOfAlgorithm(String typeOfAlgorithm) {
         this.typeOfAlgorithm = typeOfAlgorithm;
     }
-
-    
 }
