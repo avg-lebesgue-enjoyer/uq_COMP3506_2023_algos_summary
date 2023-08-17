@@ -10,6 +10,14 @@ public class DataTypeNode extends DataTreeNode {
     // BOILERPLATE METHODS
     /**
      * Constructs a new DataTypeNode
+     * @param typeOfDataStructure String description of data structure type
+     */
+    public DataTypeNode(String typeOfDataStructure) {
+        super();
+        this.typeOfDataStructure = typeOfDataStructure;
+    }
+    /**
+     * Constructs a new DataTypeNode
      * @param parent DataTreeNode parent node
      * @param typeOfDataStructure String description of data structure type
      */

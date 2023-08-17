@@ -16,6 +16,18 @@ public class DataTreeNode implements Serializable {
     private Set<DataTreeNode> children;
 
     // BOILERPLATE METHODS
+    /**
+     * Construct new DataTreeNode with no parent and no children.
+     */
+    public DataTreeNode() {
+        this.parent = null;
+        this.children = new LinkedHashSet<>();
+    }
+    
+    /**
+     * Construct new DataTreeNode with no children.
+     * @param parent DataTreeNode parent of this DataTreeNode
+     */
     public DataTreeNode(DataTreeNode parent) {
         this.parent = parent;
         this.children = new LinkedHashSet<>();
