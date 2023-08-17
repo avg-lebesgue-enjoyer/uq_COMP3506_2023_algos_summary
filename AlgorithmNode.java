@@ -8,6 +8,8 @@ public class AlgorithmNode extends AlgoTreeNode {
     private String hyperref;
     /** Name of this algorithm */
     private String name;
+    /** Description of this algorithm (brief) */
+    private String description;
     /** Best-case time complexity, in mathmode */
     private String bestTimeComplexity;
     /** Average-case time complexity, in mathmode */
@@ -35,12 +37,13 @@ public class AlgorithmNode extends AlgoTreeNode {
      * @param averageSpaceComplexity String average-case space complexity, in mathmode
      * @param worstSpaceComplexity String worst-case space complexity, in mathmode
      */
-    public AlgorithmNode(AlgoTreeNode parent, String hyperref, String name, String bestTimeComplexity,
-            String averageTimeComplexity, String worstTimeComplexity, String bestSpaceComplexity,
-            String averageSpaceComplexity, String worstSpaceComplexity) {
+    public AlgorithmNode(AlgoTreeNode parent, String hyperref, String name, String description,
+            String bestTimeComplexity, String averageTimeComplexity, String worstTimeComplexity, 
+            String bestSpaceComplexity, String averageSpaceComplexity, String worstSpaceComplexity) {
         super(parent);
         this.hyperref = hyperref;
         this.name = name;
+        this.description = description;
         this.bestTimeComplexity = bestTimeComplexity;
         this.averageTimeComplexity = averageTimeComplexity;
         this.worstTimeComplexity = worstTimeComplexity;
@@ -63,6 +66,14 @@ public class AlgorithmNode extends AlgoTreeNode {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getBestTimeComplexity() {
@@ -114,5 +125,8 @@ public class AlgorithmNode extends AlgoTreeNode {
     }
     
     // METHODS OF INTEREST
-    
+    /* TODO:
+     *  - Method to get list of all data structures which call this method
+     *  - Method to print ^^ in LaTeX
+     */
 }

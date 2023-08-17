@@ -58,6 +58,15 @@ public class AlgoTreeNode {
     public Set<AlgoTreeNode> getChildren() {
         return children;
     }
+
+    // HELPER METHODS OF INTEREST
+    /**
+     * Get whether this AlgoTreeNode has any children
+     * @return true iff this AlgoTreeNode has any children
+     */
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
     
     // METHODS OF INTEREST
 }
