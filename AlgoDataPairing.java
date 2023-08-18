@@ -64,29 +64,9 @@ public class AlgoDataPairing implements Serializable {
         throw new UnsupportedOperationException("Haven't implemented this yet!!");
     }
 
+    // COMMON HELPER METHODS
     /**
-     * <p> Put (D, A) pairs into this AlgoDataPairing, for a fixed DataTreeNode D
-     * and AlgoTreeNodes A.
-     * @param keyboard {@link java.util.Scanner} input scanner
-     * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
-     * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
-     */
-    public void appendDataAlgo(Scanner keyboard) {
-        // Grab dataTree and algoTree from Main
-        DataTree dataTree = Main.getDataTree();
-        AlgoTree algoTree = Main.getAlgoTree();
-
-        // Find data structure to associate from
-        DataTreeNode source = getSourceData(dataTree.getRoot(), keyboard);
-        if (source != null) {
-            System.out.println("Selected node was " + source.toString());
-        } else {
-            System.out.println("No node was selected.");
-        }
-    }
-
-    /**
-     * Helper method to find
+     * Helper method to find a source DataTreeNode.
      * @param cursor {@link DataTreeNode} node to ask about
      * @param keyboard {@link java.util.Scanner} input scanner
      * @return selected {@link DataTreeNode}, or null if none was selected
@@ -110,4 +90,149 @@ public class AlgoDataPairing implements Serializable {
         // Neither this node nor any of its descendants were selected.
         return null;
     }
+
+    // METHODS for appending (D, A) pairs for fixed D
+    /**
+     * <p> Put (D, A) pairs into this AlgoDataPairing, for a fixed DataTreeNode D
+     * and AlgoTreeNodes A.
+     * <p> Write only.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
+     * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
+     */
+    public void appendDataAlgo(Scanner keyboard) {
+        // Grab dataTree and algoTree from Main
+        DataTree dataTree = Main.getDataTree();
+        AlgoTree algoTree = Main.getAlgoTree();
+
+        // Find data structure to associate from
+        DataTreeNode source = getSourceData(dataTree.getRoot(), keyboard);
+        if (source == null) {
+            System.out.println("No data structure was selected.");
+            return;
+        }
+
+        // Pair with algos
+        appendAlgo(source, algoTree.getRoot(), keyboard); // recurse from head
+    }
+
+    /**
+     * Helper method to append algos to internal set.
+     * @param source {@link DataTreeNode} to pair with
+     * @param cursor {@link AlgoTreeNode} to potentially pair with
+     * @param keyboard {@link java.util.Scanner} input scanner
+     */
+    private void appendAlgo(DataTreeNode source, AlgoTreeNode cursor, Scanner keyboard) {
+        /* Preorder traversal. */
+        System.out.println("Append " + cursor.toString() + "? (\"y\"/else)");
+        String decision = keyboard.nextLine();
+        // Pair with this one?
+        if (decision.strip().equals("y")) {
+            pairs.add(new AlgoDataPair(cursor, source));
+        }
+        // Pair with one of its children?
+        for (AlgoTreeNode child : cursor.getChildren()) {
+            appendAlgo(source, child, keyboard);
+        }
+    }
+
+    // METHODS for overriding (D, A) pairs for fixed D
+    /**
+     * <p> Override (D, A) pairs in this AlgoDataPairing, for a fixed DataTreeNode D
+     * and AlgoTreeNodes A.
+     * <p> Simultaneous write and delete.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
+     * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
+     */
+    public void overrideDataAlgo(Scanner keyboard) {
+        // Grab dataTree and algoTree from Main
+        DataTree dataTree = Main.getDataTree();
+        AlgoTree algoTree = Main.getAlgoTree();
+
+        // Find data structure to associate from
+        DataTreeNode source = getSourceData(dataTree.getRoot(), keyboard);
+        if (source == null) {
+            System.out.println("No data structure was selected.");
+            return;
+        }
+
+        // Override with algos
+        overrideAlgo(source, algoTree.getRoot(), keyboard); // recurse from head
+    }
+
+    /**
+     * Helper method to override algos in internal set.
+     * @param source {@link DataTreeNode} to pair with
+     * @param cursor {@link AlgoTreeNode} to potentially pair with
+     * @param keyboard {@link java.util.Scanner} input scanner
+     */
+    private void overrideAlgo(DataTreeNode source, AlgoTreeNode cursor, Scanner keyboard) {
+        /* Preorder traversal. */
+        System.out.println("Include " + cursor.toString() + "? (\"y\"/\"n\")");
+        boolean retry;
+        do {
+            retry = false;
+            String decision = keyboard.nextLine();
+            // Override with this one?
+            if (decision.strip().equals("y")) {
+                pairs.add(new AlgoDataPair(cursor, source));
+            } else if (decision.strip().equals("n")) {
+                pairs.remove(new AlgoDataPair(cursor, source));
+            } else {
+                retry = true;
+            }
+        } while (retry);
+        // Override with one of its children?
+        for (AlgoTreeNode child : cursor.getChildren()) {
+            overrideAlgo(source, child, keyboard);
+        }
+    }
+
+    // METHODS for deleting (D, A) pairs for fixed D
+    /**
+     * <p> Delete (D, A) pairs from this AlgoDataPairing, for a fixed DataTreeNode D
+     * and AlgoTreeNodes A.
+     * <p> Delete only.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
+     * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
+     */
+    public void deleteDataAlgo(Scanner keyboard) {
+        // Grab dataTree and algoTree from Main
+        DataTree dataTree = Main.getDataTree();
+        AlgoTree algoTree = Main.getAlgoTree();
+
+        // Find data structure to associate from
+        DataTreeNode source = getSourceData(dataTree.getRoot(), keyboard);
+        if (source == null) {
+            System.out.println("No data structure was selected.");
+            return;
+        }
+
+        // Delete algos
+        deleteAlgo(source, algoTree.getRoot(), keyboard); // recurse from head
+    }
+
+    /**
+     * Helper method to delete algos from internal set.
+     * @param source {@link DataTreeNode} to pair with
+     * @param cursor {@link AlgoTreeNode} to potentially pair with
+     * @param keyboard {@link java.util.Scanner} input scanner
+     */
+    private void deleteAlgo(DataTreeNode source, AlgoTreeNode cursor, Scanner keyboard) {
+        /* Preorder traversal. */
+        System.out.println("Delete " + cursor.toString() + "? (\"y\"/\"n\")");
+        String decision = keyboard.nextLine();
+        // Delete this one?
+        if (decision.strip().equals("n")) {
+            pairs.add(new AlgoDataPair(cursor, source));
+        } 
+        // Override with one of its children?
+        for (AlgoTreeNode child : cursor.getChildren()) {
+            deleteAlgo(source, child, keyboard);
+        }
+    }
+
+    // TODO: The other way around
 }

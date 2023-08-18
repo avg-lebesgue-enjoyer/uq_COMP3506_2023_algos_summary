@@ -37,6 +37,14 @@ public class Main {
     };
     /** List of commands that can be executed from {@link Main#main(String[])} */
     private static final List<String> commands = Arrays.asList(commandsArray);
+    /** Array of commands that can be executed from {@link Main#pairDataToAlgos()} or {@link Main#pairAlgoToDatas()} */
+    private static final String[] pairCommandsArray = {
+        "append",
+        "override",
+        "delete"
+    };
+    /** List of commands that can be executed from {@link Main#pairDataToAlgos()} or {@link Main#pairAlgoToDatas()} */
+    private static final List<String> pairCommands = Arrays.asList(pairCommandsArray);
 
     /**
      * Launch method.
@@ -129,7 +137,33 @@ public class Main {
     }
 
     // IMPORTANT METHODS
-    // none
+    /**
+     * Request methods about pairing data to algos.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     */
+    private static void pairDataToAlgos(Scanner keyboard) {
+        printPairCommands("data -> algos");
+        String command = keyboard.nextLine();
+        if (! pairCommands.contains(command)) {
+            System.out.println("Invalid command.");
+        } else {
+            switch (command) {
+                case "append":
+                    pairing.appendDataAlgo(keyboard);
+                    break;
+                case "override":
+                    pairing.overrideDataAlgo(keyboard);
+                    break;
+                case "delete":
+                    pairing.deleteDataAlgo(keyboard);
+                    break;
+                default:
+                    System.err.println("I have a bug :(((");
+            }
+        }
+    }
+
+    // TODO: the other way around
 
     // HELPER METHODS
     /**
@@ -138,6 +172,21 @@ public class Main {
     private static void printCommands() {
         String printMe = "Please enter one of the following commands:";
         for (String command : commands) {
+            printMe += "\n\t\"" + command + "\"";
+        }
+        System.out.println(printMe);
+    }
+
+    /**
+     * Prints commands that can be executed in {@link Main#pairDataToAlgos()}
+     * or {@link Main#pairAlgoToDatas()}.
+     * @param whichWay String indicating whether data structure is fixed or whether
+     * algorithm is fixed
+     */
+    private static void printPairCommands(String whichWay) {
+        String printMe = "(" + whichWay + ") "
+                + "Please enter one of the following commands:";
+        for (String command : pairCommands) {
             printMe += "\n\t\"" + command + "\"";
         }
         System.out.println(printMe);
