@@ -3,6 +3,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -23,6 +25,16 @@ public class Main {
     /** filename to pairing.ser, from AlgosSummary */
     private static String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
     
+    /** Array of commands that can be executed from {@link Main#main(String[])} */
+    private static final String[] commandsArray = {
+        "die",
+        "browse_data",
+        "browse_algos",
+        "serialise"
+    };
+    /** List of commands that can be executed from {@link Main#main(String[])} */
+    private static final List<String> commands = Arrays.asList(commandsArray);
+
     /**
      * Launch method.
      * @param args String[] command line arguments
@@ -48,8 +60,33 @@ public class Main {
             // Deserialise
             deserialise();
             
-            // Browse dataTree
-            dataTree.browse(keyboard);
+            // Request user input
+            boolean dead = false;
+            String command;
+            while (! dead) {
+                printCommands();
+                command = keyboard.nextLine();
+                if (! commands.contains(command)) {
+                    System.out.println("Invalid command.");
+                } else {
+                    switch (command) {
+                        case "die":
+                            dead = true;
+                            break;
+                        case "browse_data":
+                            dataTree.browse(keyboard);
+                            break;
+                        case "browse_algos":
+                            throw new UnsupportedOperationException("Not yet implemented!");
+                            //break;
+                        case "serialise":
+                            serialise();
+                            break;
+                        default:
+                            System.err.println("I have a bug :(((");
+                    }
+                }
+            }
             
             // Serialise result
             boolean retry;
@@ -71,6 +108,21 @@ public class Main {
     // none
 
     // HELPER METHODS
+    /**
+     * Prints commands that can be executed in Main().
+     */
+    private static void printCommands() {
+        String printMe = "Please enter one of the following commands:";
+        for (String command : commands) {
+            printMe += "\n\t\"" + command + "\"";
+        }
+        System.out.println(printMe);
+    }
+
+    /**
+     * Resets filenames for the current execution of Main().
+     * @param keyboard Scanner with user input
+     */
     private static void resetFilenames(Scanner keyboard) {
         System.out.println("==== Resetting filenames ====");
         System.out.println("Input relative filepath to dataTree.ser, from the location of execution:");
@@ -82,6 +134,9 @@ public class Main {
         System.out.println("~~~~ filenames reset");
     }
 
+    /**
+     * Empty dataTree, algoTree and pairing.
+     */
     private static void emptyItems() {
         System.out.println("==== EMPTYING ITEMS ====");
         dataTree = new DataTree();
@@ -189,6 +244,10 @@ public class Main {
     }
     
     // TEST METHODS
+    /**
+     * Ignore
+     * @param args ignore
+     */
     public static void testSerializationMain(String[] args) {
         dataTree = new DataTree();
         DataTypeNode node = new DataTypeNode("Sugoma");
