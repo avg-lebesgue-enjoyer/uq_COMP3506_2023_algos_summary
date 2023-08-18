@@ -214,9 +214,9 @@ public class DataTree implements Serializable {
             retry = false;
             // Enter class
             System.out.println(
-                "Please enter one of the following classes:"
-                + "\n\t\"DataTypeNode\""
-                + "\n\t\"DataStructureNode\""
+                "Please enter one of the following kinds of nodes:"
+                + "\n\t\"DataTypeNode\" (classes of data structures; e.g. General Linear Structure)"
+                + "\n\t\"DataStructureNode\" (individual data structure ADTs; e.g. StaticSequence)"
             );
             theClass = keyboard.nextLine();
             switch (theClass) {
