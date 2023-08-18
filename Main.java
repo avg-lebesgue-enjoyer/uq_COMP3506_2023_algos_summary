@@ -32,6 +32,7 @@ public class Main {
         "browse_algos",
         "pair_data_to_algos",
         "pair_algo_to_datas",
+        "list_pairing",
         "serialise"
     };
     /** List of commands that can be executed from {@link Main#main(String[])} */
@@ -99,6 +100,12 @@ public class Main {
                         case "pair_algo_to_datas":
                             throw new UnsupportedOperationException("I haven't implemented this yet!");
                             //break;
+                        case "list_pairing":
+                            System.out.println("This view isn't very useful.");
+                            for (AlgoDataPair pair : pairing.getPairs()) {
+                                System.out.println(pair);
+                            }
+                            break;
                         default:
                             System.err.println("I have a bug :(((");
                     }

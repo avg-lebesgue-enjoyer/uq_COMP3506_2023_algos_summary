@@ -32,4 +32,10 @@ public class AlgoDataPair implements Serializable {
     public void setDataStructure(DataTreeNode dataStructure) {
         this.dataStructure = dataStructure;
     }
+
+    @Override
+    public String toString() {
+        return "(" + algorithm.toString() + ", " 
+            + dataStructure.toString() + ")";
+    }
 }
