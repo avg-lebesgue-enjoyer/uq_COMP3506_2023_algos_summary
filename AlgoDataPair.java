@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Represents a pairing between an algorithm and a data structure.
  */
-public class AlgoDataPair {
+public class AlgoDataPair implements Serializable {
     // MEMBER VARIABLES
     /** Paired algorithm */
     private AlgoTreeNode algorithm;

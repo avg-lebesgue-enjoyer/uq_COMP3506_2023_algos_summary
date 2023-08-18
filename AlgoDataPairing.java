@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * Represents the pairing between algorithms and data structures.
  */
-public class AlgoDataPairing implements Serializable{
+public class AlgoDataPairing implements Serializable {
     // MEMBER VARIABLES
     private Set<AlgoDataPair> pairs;
 
