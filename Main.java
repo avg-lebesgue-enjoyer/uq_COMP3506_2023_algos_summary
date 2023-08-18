@@ -30,6 +30,8 @@ public class Main {
         "die",
         "browse_data",
         "browse_algos",
+        "pair_data_to_algos",
+        "pair_algo_to_datas",
         "serialise"
     };
     /** List of commands that can be executed from {@link Main#main(String[])} */
@@ -91,6 +93,12 @@ public class Main {
                         case "serialise":
                             serialise();
                             break;
+                        case "pair_data_to_algos":
+                            pairing.appendDataAlgo(keyboard);
+                            break;
+                        case "pair_algo_to_datas":
+                            throw new UnsupportedOperationException("I haven't implemented this yet!");
+                            //break;
                         default:
                             System.err.println("I have a bug :(((");
                     }
@@ -181,7 +189,8 @@ public class Main {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         }
-        System.out.println("~~ dataTree serialisation " + suffix);
+        System.out.println("~~ dataTree serialised " + suffix);
+        
         // Serialise algoTree
         System.out.println("== Serialising algoTree ==");
         suffix = "unsuccessfully";
@@ -199,7 +208,21 @@ public class Main {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         }
-        System.out.println("~~ algoTree serialisation " + suffix);
+        System.out.println("~~ algoTree serialised " + suffix);
+        
+        // Serialise pairing
+        System.out.println("== Serialising pairing ==");
+        suffix = "unsuccessfully";
+        try (FileOutputStream file = new FileOutputStream(pairingFilename);
+                ObjectOutputStream out = new ObjectOutputStream(file)){
+            out.writeObject(pairing);
+            suffix = "successfully";
+        } catch (IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        }
+        System.out.println("~~ pairing serialised " + suffix);
+        
         System.out.println("~~~~ serialisaiton done.");
     }
 
@@ -210,6 +233,7 @@ public class Main {
      */
     private static boolean deserialise() {
         System.out.println("==== DESERIALISING... ====");
+        
         // Deserialise dataTree
         System.out.println("==  Deserialising dataTree ==");
         String suffixData = "unsuccessfully";
@@ -230,6 +254,7 @@ public class Main {
             System.err.println(e);
         }
         System.out.println("~~ dataTree deserialised " + suffixData);
+        
         // Deserialise algoTree
         System.out.println("==  Deserialising algoTree ==");
         String suffixAlgos = "unsuccessfully";
@@ -250,10 +275,37 @@ public class Main {
             System.err.println(e);
         }
         System.out.println("~~ algoTree deserialised " + suffixAlgos);
+        
+        // Deserialise pairing
+        System.out.println("== Deserialising pairing ==");
+        String suffixPairing = "unsuccessfully";
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(pairingFilename))) {
+            pairing = (AlgoDataPairing) in.readObject();
+            suffixPairing = "successfully";
+        } catch (IOException e) {
+            System.err.println(e);
+            System.err.println("Working directory is " + System.getProperty("user.dir"));
+        } catch (ClassNotFoundException e) {
+            System.err.println(e);
+        }
+        System.out.println("~~ pairing deserialised " + suffixPairing);
+        
         System.out.println("~~~~ deserialisation done.");
-        return suffixData.equals("successfully") && suffixAlgos.equals("successfully");
+        return suffixData.equals("successfully") && suffixAlgos.equals("successfully")
+                && suffixPairing.equals("successfully");
     }
     
+    // BOILERPLATE METHODS
+    public static DataTree getDataTree() {
+        return dataTree;
+    }
+    public static AlgoTree getAlgoTree() {
+        return algoTree;
+    }
+    public static AlgoDataPairing getPairing() {
+        return pairing;
+    }
+
     // TEST METHODS
     /**
      * Ignore

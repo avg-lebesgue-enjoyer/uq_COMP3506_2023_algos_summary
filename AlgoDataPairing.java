@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -61,5 +62,52 @@ public class AlgoDataPairing implements Serializable {
      */
     public AlgoDataPairing fill(DataTree dataTree, AlgoTree algoTree) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Haven't implemented this yet!!");
+    }
+
+    /**
+     * <p> Put (D, A) pairs into this AlgoDataPairing, for a fixed DataTreeNode D
+     * and AlgoTreeNodes A.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
+     * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
+     */
+    public void appendDataAlgo(Scanner keyboard) {
+        // Grab dataTree and algoTree from Main
+        DataTree dataTree = Main.getDataTree();
+        AlgoTree algoTree = Main.getAlgoTree();
+
+        // Find data structure to associate from
+        DataTreeNode source = getSourceData(dataTree.getRoot(), keyboard);
+        if (source != null) {
+            System.out.println("Selected node was " + source.toString());
+        } else {
+            System.out.println("No node was selected.");
+        }
+    }
+
+    /**
+     * Helper method to find
+     * @param cursor {@link DataTreeNode} node to ask about
+     * @param keyboard {@link java.util.Scanner} input scanner
+     * @return selected {@link DataTreeNode}, or null if none was selected
+     */
+    public DataTreeNode getSourceData(DataTreeNode cursor, Scanner keyboard) {
+        /* Preorder traversal. */
+        System.out.println("Select " + cursor.toString() + "? (\"y\"/else)");
+        String decision = keyboard.nextLine();
+        // Select this one?
+        if (decision.strip().equals("y")) {
+            return cursor;
+        }
+        // Select one of its children?
+        for (DataTreeNode child : cursor.getChildren()) {
+            DataTreeNode trial = getSourceData(child, keyboard);
+            // If this child, or one of its descendants, was selected, return it
+            if (trial != null) {
+                return trial;
+            }
+        }
+        // Neither this node nor any of its descendants were selected.
+        return null;
     }
 }
