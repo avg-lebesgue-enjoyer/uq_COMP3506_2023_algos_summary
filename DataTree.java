@@ -106,7 +106,7 @@ public class DataTree implements Serializable {
                     case "die":
                         return;
                     case "echo_node_data":
-                        System.out.println("\t" + cursor.toString());
+                        System.out.println(cursor.echoContents());
                         break;
                     case "print_subtree":
                         System.out.println(">> Subtree from here is:");

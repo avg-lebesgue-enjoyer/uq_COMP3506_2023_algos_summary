@@ -36,9 +36,16 @@ public class DataTypeNode extends DataTreeNode {
 
     @Override
     public String toString() {
-        return super.toString()
-                + " <- DataTypeNode [" + typeOfDataStructure + "]";
+        return "DataTypeNode [" + typeOfDataStructure + "]";
     }
 
-    
+    /**
+     * Return the contents of this {@link DataTypeNode}, as a String.
+     * @return contents of this node
+     */
+    @Override
+    public String echoContents() {
+        return ""
+            + "Class: " + typeOfDataStructure;
+    }
 }

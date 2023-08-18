@@ -41,7 +41,18 @@ public class DataStructureNode extends DataTreeNode {
 
     @Override
     public String toString() {
-        return super.toString()
-                + " <- DataStructureNode [" + name + "]";
+        return "DataStructureNode [" + name + "]";
+    }
+
+    /**
+     * Return the contents of this {@link DataStructureNode}, as a String.
+     * @return contents of this node
+     */
+    @Override 
+    public String echoContents() {
+        return ""
+            + "Name: " + name
+            + "\nhyperref: " + hyperref
+        ;
     }
 }

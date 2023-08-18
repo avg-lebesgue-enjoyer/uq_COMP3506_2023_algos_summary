@@ -28,14 +28,7 @@ public class Main {
      * @param args String[] command line arguments
      */
     public static void main(String[] args) {
-        //testSerializationMain(new String[] {});
-        /*
-        algoTree = new AlgoTree();
-        algoTree.setRoot(null);
-        dataTree = new DataTree();
-        dataTree.setRoot(new DataTreeNode(true));
-        serialise();
-        */
+        // HARD RESET
         /*
         emptyItems();
         serialise();
@@ -59,11 +52,17 @@ public class Main {
             dataTree.browse(keyboard);
             
             // Serialise result
-            System.out.println("Would you like to serialise? \"y\"/\"n\"");
-            String doSerialise = keyboard.nextLine();
-            if (doSerialise.strip().equals("y")) {
-                serialise();
-            }
+            boolean retry;
+            do {
+                retry = false;
+                System.out.println("Would you like to serialise? \"y\"/\"n\"");
+                String doSerialise = keyboard.nextLine();
+                if (doSerialise.strip().equals("y")) {
+                    serialise();
+                } else if (! doSerialise.strip().equals("n")) {
+                    retry = true;
+                }
+            } while (retry);
         }
         System.out.println("End of main()");
     }

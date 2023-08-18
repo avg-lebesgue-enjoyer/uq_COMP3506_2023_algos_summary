@@ -85,4 +85,13 @@ public class DataTreeNode implements Serializable {
     public boolean hasChildren() {
         return !children.isEmpty();
     }
+
+    /**
+     * Return the contents of this {@link DataTreeNode}, as a String.
+     * @return contents of this node
+     */
+    public String echoContents() {
+        return ""
+            + "Root: " + root;
+    }
 }
