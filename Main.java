@@ -103,7 +103,7 @@ public class Main {
                             serialise();
                             break;
                         case "pair_data_to_algos":
-                            pairing.appendDataAlgo(keyboard);
+                            pairDataToAlgos(keyboard);
                             break;
                         case "pair_algo_to_datas":
                             throw new UnsupportedOperationException("I haven't implemented this yet!");
