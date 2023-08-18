@@ -1,6 +1,6 @@
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents nodes in an AlgoTree.
@@ -13,7 +13,7 @@ public class AlgoTreeNode implements Serializable {
     /** Parent of this AlgoTreeNode */
     private AlgoTreeNode parent;
     /** Children of this AlgoTreeNode */
-    private Set<AlgoTreeNode> children;
+    private List<AlgoTreeNode> children;
     /** Indicates whether this AlgoTreeNode is the root of an AlgoTree */
     private boolean root;
     
@@ -24,7 +24,7 @@ public class AlgoTreeNode implements Serializable {
      */
     public AlgoTreeNode() {
         this.parent = null;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
         this.root = false;
     }
 
@@ -35,7 +35,7 @@ public class AlgoTreeNode implements Serializable {
      */
     public AlgoTreeNode(AlgoTreeNode parent) {
         this.parent = parent;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
         this.root = false;
     }
 
@@ -46,7 +46,7 @@ public class AlgoTreeNode implements Serializable {
      */
     public AlgoTreeNode(boolean root) {
         this.parent = null;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
         this.root = root;
     }
 
@@ -70,7 +70,7 @@ public class AlgoTreeNode implements Serializable {
      * Get set of children of this AlgoTreeNode.
      * @return children of this AlgoTreeNode
      */
-    public Set<AlgoTreeNode> getChildren() {
+    public List<AlgoTreeNode> getChildren() {
         return children;
     }
     
@@ -82,7 +82,15 @@ public class AlgoTreeNode implements Serializable {
         this.root = root;
     }
 
-    // HELPER METHODS OF INTEREST
+    @Override
+    public String toString() {
+        if (this.root) {
+            return "AlgoTreeNode ROOT";
+        }
+        return "AlgoTreeNode";
+    }
+
+    // HELPER METHODS
     /**
      * Get whether this AlgoTreeNode has any children
      * @return true iff this AlgoTreeNode has any children
@@ -90,6 +98,13 @@ public class AlgoTreeNode implements Serializable {
     public boolean hasChildren() {
         return !children.isEmpty();
     }
-    
-    // METHODS OF INTEREST
+
+    /**
+     * Return the contents of this {@link AlgoTreeNode}, as a String.
+     * @return contents of this node
+     */
+    public String echoContents() {
+        return ""
+            + "Root: " + root;
+    }
 }

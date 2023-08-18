@@ -58,7 +58,16 @@ public class Main {
             }
 
             // Deserialise
-            deserialise();
+            boolean deserialised = deserialise();
+            if (! deserialised) {
+                System.out.println(
+                    "Some data did not serialise. "
+                    + "\nWould you like to kill it all? (\"kill\"/else)"
+                );
+                if (keyboard.nextLine().strip().equals("kill")) {
+                    emptyItems();
+                }
+            }
             
             // Request user input
             boolean dead = false;
@@ -77,8 +86,8 @@ public class Main {
                             dataTree.browse(keyboard);
                             break;
                         case "browse_algos":
-                            throw new UnsupportedOperationException("Not yet implemented!");
-                            //break;
+                            algoTree.browse(keyboard);
+                            break;
                         case "serialise":
                             serialise();
                             break;
@@ -197,12 +206,13 @@ public class Main {
     /**
      * <p> Deserialise {@link Main#dataTree} and {@link Main#algoTree}
      * <p> TODO: serialise and deserialise AlgoDataPairing.
+     * @return true iff
      */
-    private static void deserialise() {
+    private static boolean deserialise() {
         System.out.println("==== DESERIALISING... ====");
         // Deserialise dataTree
         System.out.println("==  Deserialising dataTree ==");
-        String suffix = "unsuccessfully";
+        String suffixData = "unsuccessfully";
         try {  
             // Streams
             FileInputStream file = new FileInputStream(dataTreeFilename);
@@ -212,17 +222,17 @@ public class Main {
             // Close
             in.close();
             file.close();
-            suffix = "successfully";
+            suffixData = "successfully";
         } catch(IOException e) {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         } catch(ClassNotFoundException e) {
             System.err.println(e);
         }
-        System.out.println("~~ dataTree deserialised " + suffix);
+        System.out.println("~~ dataTree deserialised " + suffixData);
         // Deserialise algoTree
         System.out.println("==  Deserialising algoTree ==");
-        suffix = "unsuccessfully";
+        String suffixAlgos = "unsuccessfully";
         try {  
             // Streams
             FileInputStream file = new FileInputStream(algoTreeFilename);
@@ -232,15 +242,16 @@ public class Main {
             // Close
             in.close();
             file.close();
-            suffix = "successfully";
+            suffixAlgos = "successfully";
         } catch(IOException e) {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         } catch(ClassNotFoundException e) {
             System.err.println(e);
         }
-        System.out.println("~~ algoTree deserialised " + suffix);
+        System.out.println("~~ algoTree deserialised " + suffixAlgos);
         System.out.println("~~~~ deserialisation done.");
+        return suffixData.equals("successfully") && suffixAlgos.equals("successfully");
     }
     
     // TEST METHODS

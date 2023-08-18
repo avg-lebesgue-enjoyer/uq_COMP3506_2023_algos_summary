@@ -71,10 +71,6 @@ public class DataTreeNode implements Serializable {
             return "DataTreeNode ROOT";
         }
         return "DataTreeNode";
-            //"["
-            //+ "DataTreeNode [parent=" + parent 
-            //+ ", children=" + children.toString() 
-            //+ ", root=" + root + "]";
     }
 
     // HELPER METHODS

@@ -25,4 +25,19 @@ public class AlgoTypeNode extends AlgoTreeNode {
     public void setTypeOfAlgorithm(String typeOfAlgorithm) {
         this.typeOfAlgorithm = typeOfAlgorithm;
     }
+    
+    @Override
+    public String toString() {
+        return "AlgoTypeNode [" + typeOfAlgorithm + "]";
+    }
+
+    /**
+     * Return the contents of this {@link AlgoTypeNode}, as a String.
+     * @return contents of this node
+     */
+    @Override
+    public String echoContents() {
+        return ""
+            + "Class: " + typeOfAlgorithm;
+    }
 }

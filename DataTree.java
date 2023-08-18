@@ -77,7 +77,6 @@ public class DataTree implements Serializable {
 
     // METHODS OF INTEREST
     /* TODO:
-     *  - Method to *browse* this tree.
      *  - Method to print this DataTree in LaTeX
      *  - Method to get the sub-DataTree consisting only of data structures that may call a given AlgorithmNode
      */
@@ -87,6 +86,7 @@ public class DataTree implements Serializable {
      * @param keyboard {@link java.util.Scanner} input scanner
      */
     public void browse(Scanner keyboard) {
+        System.out.println("==== Browsing DataTree ====");
         this.cursor = this.getRoot();
         if (this.cursor == null) {
             System.err.println("Cannot browse a tree with no root!");
@@ -104,6 +104,7 @@ public class DataTree implements Serializable {
                 // Can now assume that command is a valid command on this node
                 switch (command) {
                     case "die":
+                        System.out.println("~~~~ finished browsing DataTree");
                         return;
                     case "echo_node_data":
                         System.out.println(cursor.echoContents());
@@ -194,7 +195,7 @@ public class DataTree implements Serializable {
      * @param traversalFunction TraversalFunction to apply at each node
      * @param padding String for printing subtree
      */
-    private void preorderTraversal(DataTreeNode node, TraversalFunction traversalFunction, String padding) {
+    private void preorderTraversal(DataTreeNode node, DataTraversalFunction traversalFunction, String padding) {
         traversalFunction.apply(node, padding);
         for (DataTreeNode child : node.getChildren()) {
             preorderTraversal(child, traversalFunction, padding + "|\t");
@@ -243,8 +244,8 @@ public class DataTree implements Serializable {
                 // Request details
                 System.out.println(
                     "Enter the following details, separated by newline characters:"
-                    + "\n\tName of data structure, as a string:"
-                    + "\n\tHyperref \\ref{} and \\label{} parameter, as a string:"
+                    + "\n\tName of data structure, as a string (e.g. StaticSequence)"
+                    + "\n\tHyperref \\ref{} and \\label{} parameter, as a string (e.g. adt:static_sequence)"
                 );
                 String name = keyboard.nextLine();
                 String hyperref = keyboard.nextLine();
@@ -296,6 +297,6 @@ public class DataTree implements Serializable {
 /**
  * Function to apply during tree traversal.
  */
-abstract interface TraversalFunction {
+abstract interface DataTraversalFunction {
     public void apply(DataTreeNode dataTreeNode, String padding);
 }
