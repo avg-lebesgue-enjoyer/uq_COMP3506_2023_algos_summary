@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * This class represents nodes in a DataTree.
@@ -13,7 +15,7 @@ public class DataTreeNode implements Serializable {
     /** Parent of this DataTreeNode */
     private DataTreeNode parent;
     /** Children of this DataTreeNode */
-    private Set<DataTreeNode> children;
+    private List<DataTreeNode> children;
     /** Marker for special root node */
     private boolean root;
 
@@ -23,7 +25,7 @@ public class DataTreeNode implements Serializable {
      */
     public DataTreeNode() {
         this.parent = null;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
         this.root = false;
     }
 
@@ -33,7 +35,7 @@ public class DataTreeNode implements Serializable {
      */
     public DataTreeNode(boolean root) {
         this.parent = null;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
         this.root = root;
     }
     
@@ -43,7 +45,7 @@ public class DataTreeNode implements Serializable {
      */
     public DataTreeNode(DataTreeNode parent) {
         this.parent = parent;
-        this.children = new LinkedHashSet<>();
+        this.children = new LinkedList<>();
     }
 
     public DataTreeNode getParent() {
@@ -52,10 +54,10 @@ public class DataTreeNode implements Serializable {
     public void setParent(DataTreeNode parent) {
         this.parent = parent;
     }
-    public Set<DataTreeNode> getChildren() {
+    public List<DataTreeNode> getChildren() {
         return children;
     }
-    public void setChildren(Set<DataTreeNode> children) {
+    public void setChildren(List<DataTreeNode> children) {
         this.children = children;
     }
     public boolean isRoot() {

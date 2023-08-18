@@ -3,6 +3,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 /**
  * <p> Launch platform.
@@ -12,7 +13,7 @@ public class Main {
     /** DataTree to maintain */
     private static DataTree dataTree;
     /** filename to dataTree.ser, from AlgosSummary */
-    private static final String dataTreeFilename = "uq_COMP3506_2023_algos_summary/saved_data/dataTree.ser";
+    private static String dataTreeFilename = "uq_COMP3506_2023_algos_summary/saved_data/dataTree.ser";
     /** AlgoTree to maintain */
     private static AlgoTree algoTree;
     /** filename to algoTree.ser, from AlgosSummary */
@@ -20,7 +21,7 @@ public class Main {
     /** AlgoDataPairing to maintain */
     private static AlgoDataPairing pairing;
     /** filename to pairing.ser, from AlgosSummary */
-    private static final String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
+    private static String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
     
     /**
      * Launch method.
@@ -35,15 +36,60 @@ public class Main {
         dataTree.setRoot(new DataTreeNode(true));
         serialise();
         */
-        deserialise();
-        dataTree.browse();
+        /*
+        emptyItems();
+        serialise();
+        */
+        try (Scanner keyboard = new Scanner(System.in)) {
+            // Reset filenames?
+            System.out.println("Would you like to reset your filenames? \"y\"/else");
+            if (keyboard.nextLine().equals("y")) {
+                resetFilenames(keyboard);
+            }
+            
+            // Deserialise
+            deserialise();
+            
+            // Browse dataTree
+            dataTree.browse(keyboard);
+            
+            // Serialise result
+            System.out.println("Would you like to serialise? \"y\"/\"n\"");
+            String doSerialise = keyboard.nextLine();
+            if (doSerialise.strip().equals("y")) {
+                serialise();
+            }
+        }
         System.out.println("End of main()");
     }
 
     // IMPORTANT METHODS
-    
+    // none
 
     // HELPER METHODS
+    private static void resetFilenames(Scanner keyboard) {
+        System.out.println("==== Resetting filenames ====");
+        System.out.println("Input relative filepath to dataTree.ser, from the location of execution:");
+        dataTreeFilename = keyboard.nextLine();
+        System.out.println("Input relative filepath to algoTree.ser, from the location of execution:");
+        algoTreeFilename = keyboard.nextLine();
+        System.out.println("Input relative filepath to pairing.ser, from the location of execution:");
+        pairingFilename = keyboard.nextLine();
+        System.out.println("~~~~ filenames reset");
+    }
+
+    private static void emptyItems() {
+        System.out.println("==== EMPTYING ITEMS ====");
+        dataTree = new DataTree();
+        dataTree.reRoot();
+
+        algoTree = new AlgoTree();
+        algoTree.reRoot();
+
+        pairing = new AlgoDataPairing();
+        System.out.println("~~~~ items emptied");
+    }
+    
     /**
      * <p> Serialise {@link Main#dataTree} and {@link Main#algoTree}
      * <p> TODO: serialise and deserialise AlgoDataPairing.
@@ -192,12 +238,12 @@ public class Main {
         }
         
         // Add funny test data
-        DataStructureNode newNode = new DataStructureNode(dataTree.getRoot(), "StaticSequence");
+        DataStructureNode newNode = new DataStructureNode(dataTree.getRoot(), "StaticSequence", "dat:static_sequence");
         dataTree.getRoot().getChildren().add(newNode);
 
         // Check thing is okay
         try {
-            dataTree.browse();
+            dataTree.browse(null); // BUG: This breaks immediately lol
         } catch (NullPointerException e) {
             System.err.println(e);
         }

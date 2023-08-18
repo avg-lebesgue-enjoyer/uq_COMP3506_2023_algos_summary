@@ -17,11 +17,11 @@ public class DataTypeNode extends DataTreeNode {
         this.typeOfDataStructure = typeOfDataStructure;
     }
     /**
-     * Constructs a new DataTypeNode
+     * Constructs a new DataTypeNode.
      * @param parent DataTreeNode parent node
      * @param typeOfDataStructure String description of data structure type
      */
-    public DataTypeNode(DataTypeNode parent, String typeOfDataStructure) {
+    public DataTypeNode(DataTreeNode parent, String typeOfDataStructure) {
         super(parent);
         this.typeOfDataStructure = typeOfDataStructure;
     }
@@ -37,7 +37,7 @@ public class DataTypeNode extends DataTreeNode {
     @Override
     public String toString() {
         return super.toString()
-                + " <- DataTypeNode [typeOfDataStructure=" + typeOfDataStructure + "]";
+                + " <- DataTypeNode [" + typeOfDataStructure + "]";
     }
 
     

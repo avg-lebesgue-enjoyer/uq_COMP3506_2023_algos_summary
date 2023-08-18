@@ -7,16 +7,20 @@ public class DataStructureNode extends DataTreeNode {
     // MEMBER VARIABLES
     /** Name of this data structure */
     private String name;
+    /** hyperref \ref{} and \label{} parameter to data structure */
+    private String hyperref;
     
     // BOILERPLATE METHODS
     /**
-     * Construct new DataStructureNode with no super structure.
-     * @param parent
-     * @param name
+     * Construct new DataStructureNode.
+     * @param parent {@link DataTreeNode} parent of this data structure
+     * @param name {@link String} name of this data str
+     * @param hyperref {@link String} hyperref \ref{} and \label{} parameter
      */
-    public DataStructureNode(DataTreeNode parent, String name) {
+    public DataStructureNode(DataTreeNode parent, String name, String hyperref) {
         super(parent);
         this.name = name;
+        this.hyperref = hyperref;
     }
 
     public String getName() {
@@ -27,9 +31,17 @@ public class DataStructureNode extends DataTreeNode {
         this.name = name;
     }
 
+    public String getHyperref() {
+        return hyperref;
+    }
+
+    public void setHyperref(String hyperref) {
+        this.hyperref = hyperref;
+    }
+
     @Override
     public String toString() {
         return super.toString()
-                + " <- DataStructureNode [name=" + name + "]";
+                + " <- DataStructureNode [" + name + "]";
     }
 }

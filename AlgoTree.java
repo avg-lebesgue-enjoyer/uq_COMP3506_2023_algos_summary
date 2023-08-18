@@ -32,4 +32,14 @@ public class AlgoTree implements Serializable {
      *  - Method to print this AlgoTree in LaTeX
      *  - Method to get the sub-AlgoTree consisting only of methods called by a given DataStructureNode
      */
+
+    /**
+     * <p> <b>REROOT THIS TREE.</b>
+     * <p> Do not use unless confident!
+     * @return true iff rerooting was successful
+     */
+    public boolean reRoot() {
+        this.setRoot(new AlgoTreeNode(true));
+        return true;
+    }
 }
