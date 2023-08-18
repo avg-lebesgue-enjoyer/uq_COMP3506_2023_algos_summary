@@ -1,8 +1,6 @@
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents nodes in a DataTree.
