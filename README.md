@@ -8,3 +8,5 @@
 <ul>
   <li>pairing.ser (default filepath: "saved_data/pairing.ser")</li>
 </ul>
+
+<p><b>Current functionality:</b> Browse the tree <em>dataTree.ser</em> of data structures.</p>
