@@ -172,49 +172,38 @@ public class Main {
      */
     private static void serialise() {
         System.out.println("==== SERIALISING... ====");
+        
         // Serialise dataTree
-        System.out.println("== Serialising dataTree ==");
+        System.out.println("== Serialising pairing ==");
         String suffix = "unsuccessfully";
-        try {
-            // Streams
-            FileOutputStream file = new FileOutputStream(dataTreeFilename);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            // Write object
+        try (ObjectOutputStream out = 
+                new ObjectOutputStream(new FileOutputStream(dataTreeFilename))){
             out.writeObject(dataTree);
-            // Close
-            out.close();
-            file.close();
             suffix = "successfully";
         } catch (IOException e) {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         }
-        System.out.println("~~ dataTree serialised " + suffix);
+        System.out.println("~~ pairing serialised " + suffix);
         
         // Serialise algoTree
         System.out.println("== Serialising algoTree ==");
         suffix = "unsuccessfully";
-        try {
-            // Streams
-            FileOutputStream file = new FileOutputStream(algoTreeFilename);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            // Write object
+        try (ObjectOutputStream out = 
+                new ObjectOutputStream(new FileOutputStream(algoTreeFilename))){
             out.writeObject(algoTree);
-            // Close
-            out.close();
-            file.close();
             suffix = "successfully";
         } catch (IOException e) {
             System.err.println(e);
             System.err.println("Working directory is " + System.getProperty("user.dir"));
         }
-        System.out.println("~~ algoTree serialised " + suffix);
+        System.out.println("~~ pairing serialised " + suffix);
         
         // Serialise pairing
         System.out.println("== Serialising pairing ==");
         suffix = "unsuccessfully";
-        try (FileOutputStream file = new FileOutputStream(pairingFilename);
-                ObjectOutputStream out = new ObjectOutputStream(file)){
+        try (ObjectOutputStream out = 
+                new ObjectOutputStream(new FileOutputStream(pairingFilename))){
             out.writeObject(pairing);
             suffix = "successfully";
         } catch (IOException e) {
@@ -237,15 +226,9 @@ public class Main {
         // Deserialise dataTree
         System.out.println("==  Deserialising dataTree ==");
         String suffixData = "unsuccessfully";
-        try {  
-            // Streams
-            FileInputStream file = new FileInputStream(dataTreeFilename);
-            ObjectInputStream in = new ObjectInputStream(file);
-            // Read object
+        try (ObjectInputStream in = 
+                new ObjectInputStream(new FileInputStream(dataTreeFilename))) {  
             dataTree = (DataTree) in.readObject();
-            // Close
-            in.close();
-            file.close();
             suffixData = "successfully";
         } catch(IOException e) {
             System.err.println(e);
@@ -258,15 +241,9 @@ public class Main {
         // Deserialise algoTree
         System.out.println("==  Deserialising algoTree ==");
         String suffixAlgos = "unsuccessfully";
-        try {  
-            // Streams
-            FileInputStream file = new FileInputStream(algoTreeFilename);
-            ObjectInputStream in = new ObjectInputStream(file);
-            // Read object
+        try (ObjectInputStream in = 
+                new ObjectInputStream(new FileInputStream(algoTreeFilename))) {  
             algoTree = (AlgoTree) in.readObject();
-            // Close
-            in.close();
-            file.close();
             suffixAlgos = "successfully";
         } catch(IOException e) {
             System.err.println(e);
@@ -279,7 +256,8 @@ public class Main {
         // Deserialise pairing
         System.out.println("== Deserialising pairing ==");
         String suffixPairing = "unsuccessfully";
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(pairingFilename))) {
+        try (ObjectInputStream in = 
+                new ObjectInputStream(new FileInputStream(pairingFilename))) {
             pairing = (AlgoDataPairing) in.readObject();
             suffixPairing = "successfully";
         } catch (IOException e) {
