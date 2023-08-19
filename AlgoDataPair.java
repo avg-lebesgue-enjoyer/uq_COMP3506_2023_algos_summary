@@ -38,4 +38,40 @@ public class AlgoDataPair implements Serializable {
         return "(" + algorithm.toString() + ", " 
             + dataStructure.toString() + ")";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AlgoDataPair other = (AlgoDataPair) obj;
+        if (algorithm == null) {
+            if (other.algorithm != null)
+                return false;
+        } else if (!algorithm.equals(other.algorithm))
+            return false;
+        if (dataStructure == null) {
+            if (other.dataStructure != null)
+                return false;
+        } else if (!dataStructure.equals(other.dataStructure))
+            return false;
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean equals(Object anObject) {
+        if (! (anObject instanceof AlgoDataPair)) {
+            return false;
+        }
+        AlgoDataPair aPair = (AlgoDataPair) anObject;
+        return this.algorithm.equals(aPair.getAlgorithm())
+                && this.dataStructure.equals(aPair.getDataStructure());
+    }
+    */
+
+    
 }

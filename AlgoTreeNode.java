@@ -90,6 +90,30 @@ public class AlgoTreeNode implements Serializable {
         return "AlgoTreeNode";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AlgoTreeNode other = (AlgoTreeNode) obj;
+        if (parent == null) {
+            if (other.parent != null)
+                return false;
+        } else if (!parent.equals(other.parent))
+            return false;
+        if (children == null) {
+            if (other.children != null)
+                return false;
+        } else if (!children.equals(other.children))
+            return false;
+        if (root != other.root)
+            return false;
+        return true;
+    }
+
     // HELPER METHODS
     /**
      * Get whether this AlgoTreeNode has any children

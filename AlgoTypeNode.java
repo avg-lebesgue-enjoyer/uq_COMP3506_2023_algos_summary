@@ -31,6 +31,23 @@ public class AlgoTypeNode extends AlgoTreeNode {
         return "AlgoTypeNode [" + typeOfAlgorithm + "]";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AlgoTypeNode other = (AlgoTypeNode) obj;
+        if (typeOfAlgorithm == null) {
+            if (other.typeOfAlgorithm != null)
+                return false;
+        } else if (!typeOfAlgorithm.equals(other.typeOfAlgorithm))
+            return false;
+        return true;
+    }
+
     /**
      * Return the contents of this {@link AlgoTypeNode}, as a String.
      * @return contents of this node

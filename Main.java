@@ -106,8 +106,8 @@ public class Main {
                             pairDataToAlgos(keyboard);
                             break;
                         case "pair_algo_to_datas":
-                            throw new UnsupportedOperationException("I haven't implemented this yet!");
-                            //break;
+                            pairAlgoToDatas(keyboard);
+                            break;
                         case "list_pairing":
                             System.out.println("This view isn't very useful.");
                             for (AlgoDataPair pair : pairing.getPairs()) {
@@ -156,6 +156,32 @@ public class Main {
                     break;
                 case "delete":
                     pairing.deleteDataAlgo(keyboard);
+                    break;
+                default:
+                    System.err.println("I have a bug :(((");
+            }
+        }
+    }
+
+    /**
+     * Request methods about pairing algo to datas.
+     * @param keyboard {@link java.util.Scanner} input scanner
+     */
+    private static void pairAlgoToDatas(Scanner keyboard) {
+        printPairCommands("algos -> datas");
+        String command = keyboard.nextLine();
+        if (! pairCommands.contains(command)) {
+            System.out.println("Invalid command.");
+        } else {
+            switch (command) {
+                case "append":
+                    pairing.appendAlgoData(keyboard);
+                    break;
+                case "override":
+                    pairing.overrideAlgoData(keyboard);
+                    break;
+                case "delete":
+                    pairing.deleteAlgoData(keyboard);
                     break;
                 default:
                     System.err.println("I have a bug :(((");

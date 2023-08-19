@@ -39,6 +39,22 @@ public class DataTypeNode extends DataTreeNode {
         return "DataTypeNode [" + typeOfDataStructure + "]";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DataTypeNode other = (DataTypeNode) obj;
+        if (typeOfDataStructure == null) {
+            if (other.typeOfDataStructure != null)
+                return false;
+        } else if (!typeOfDataStructure.equals(other.typeOfDataStructure))
+            return false;
+        return true;
+    }
     /**
      * Return the contents of this {@link DataTypeNode}, as a String.
      * @return contents of this node

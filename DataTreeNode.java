@@ -73,6 +73,30 @@ public class DataTreeNode implements Serializable {
         return "DataTreeNode";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DataTreeNode other = (DataTreeNode) obj;
+        if (parent == null) {
+            if (other.parent != null)
+                return false;
+        } else if (!parent.equals(other.parent))
+            return false;
+        if (children == null) {
+            if (other.children != null)
+                return false;
+        } else if (!children.equals(other.children))
+            return false;
+        if (root != other.root)
+            return false;
+        return true;
+    }
+
     // HELPER METHODS
     /**
      * Get whether this DataTreeNode has any children.

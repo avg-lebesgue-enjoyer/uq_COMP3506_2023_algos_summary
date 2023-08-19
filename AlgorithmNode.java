@@ -43,6 +43,28 @@ public class AlgorithmNode extends AlgoTreeNode {
     public String toString() {
         return "AlgorithmNode [" + name + "]";
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AlgorithmNode other = (AlgorithmNode) obj;
+        if (hyperref == null) {
+            if (other.hyperref != null)
+                return false;
+        } else if (!hyperref.equals(other.hyperref))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
 
     /**
      * Return the contents of this {@link AlgorithmNode}, as a String.

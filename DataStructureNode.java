@@ -44,6 +44,28 @@ public class DataStructureNode extends DataTreeNode {
         return "DataStructureNode [" + name + "]";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DataStructureNode other = (DataStructureNode) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (hyperref == null) {
+            if (other.hyperref != null)
+                return false;
+        } else if (!hyperref.equals(other.hyperref))
+            return false;
+        return true;
+    }
+
     /**
      * Return the contents of this {@link DataStructureNode}, as a String.
      * @return contents of this node
