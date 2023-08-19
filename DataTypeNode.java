@@ -40,6 +40,14 @@ public class DataTypeNode extends DataTreeNode {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((typeOfDataStructure == null) ? 0 : typeOfDataStructure.hashCode());
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -55,6 +63,7 @@ public class DataTypeNode extends DataTreeNode {
             return false;
         return true;
     }
+    
     /**
      * Return the contents of this {@link DataTypeNode}, as a String.
      * @return contents of this node

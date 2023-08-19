@@ -152,11 +152,14 @@ public class AlgoDataPairing implements Serializable {
      */
     private void appendAlgo(DataTreeNode source, AlgoTreeNode cursor, Scanner keyboard) {
         /* Preorder traversal. */
-        System.out.println("Append " + cursor.toString() + "? (\"y\"/else)");
-        String decision = keyboard.nextLine();
-        // Pair with this one?
-        if (decision.strip().equals("y")) {
-            pairs.add(new AlgoDataPair(cursor, source));
+        AlgoDataPair candidate = new AlgoDataPair(cursor, source);
+        if (! this.pairs.contains(candidate)) {
+            System.out.println("Append " + cursor.toString() + "? (\"y\"/else)");
+            String decision = keyboard.nextLine();
+            // Pair with this one?
+            if (decision.strip().equals("y")) {
+                pairs.add(candidate);
+            }
         }
         // Pair with one of its children?
         for (AlgoTreeNode child : cursor.getChildren()) {
@@ -196,11 +199,14 @@ public class AlgoDataPairing implements Serializable {
      */
     private void appendData(AlgoTreeNode source, DataTreeNode cursor, Scanner keyboard) {
         /* Preorder traversal. */
-        System.out.println("Append " + cursor.toString() + "? (\"y\"/else)");
-        String decision = keyboard.nextLine();
-        // Pair with this one?
-        if (decision.strip().equals("y")) {
-            pairs.add(new AlgoDataPair(source, cursor));
+        AlgoDataPair candidate = new AlgoDataPair(source, cursor);
+        if (! this.pairs.contains(candidate)) {
+            System.out.println("Append " + cursor.toString() + "? (\"y\"/else)");
+            String decision = keyboard.nextLine();
+            // Pair with this one?
+            if (decision.strip().equals("y")) {
+                pairs.add(candidate);
+            }
         }
         // Pair with one of its children?
         for (DataTreeNode child : cursor.getChildren()) {
@@ -318,7 +324,6 @@ public class AlgoDataPairing implements Serializable {
      * <p> Delete (D, A) pairs from this AlgoDataPairing, for a fixed DataTreeNode D
      * and AlgoTreeNodes A.
      * <p> Delete only.
-     * <p> BUG: Doesn't work at all.
      * @param keyboard {@link java.util.Scanner} input scanner
      * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
      * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
@@ -347,20 +352,14 @@ public class AlgoDataPairing implements Serializable {
      */
     private void deleteAlgo(DataTreeNode source, AlgoTreeNode cursor, Scanner keyboard) {
         /* Preorder traversal. */
-        System.out.println("<!> " + (new AlgoDataPair(cursor, source)).toString());
-        System.out.println("<!> " + this.pairs.toString());
-        if (this.pairs.contains(new AlgoDataPair(cursor, source))) {
+        AlgoDataPair candidate = new AlgoDataPair(cursor, source);
+        if (this.pairs.contains(candidate)) {
             System.out.println("Delete " + cursor.toString() + "? (\"y\"/\"n\")");
             String decision = keyboard.nextLine();
             // Delete this one?
-            if (decision.strip().equals("n")) {
-                pairs.remove(new AlgoDataPair(cursor, source));
+            if (decision.strip().equals("y")) {
+                pairs.remove(candidate);
             }
-        } else {
-            System.err.println("<!> why????");
-            LinkedList<AlgoDataPair> asList = new LinkedList<>(this.pairs);
-            System.out.println("<!> " + asList.toString());
-            System.out.println("<!> " + Objects.equals(asList.getFirst(), new AlgoDataPair(cursor, source)));
         }
         // Delete one of its children?
         for (AlgoTreeNode child : cursor.getChildren()) {
@@ -372,7 +371,6 @@ public class AlgoDataPairing implements Serializable {
      * <p> Delete (D, A) pairs from this AlgoDataPairing, for a fixed AlgoTreeNode A
      * and DataTreeNodes D.
      * <p> Delete only.
-     * <p> BUG: Doesn't work at all. {@see AlgoDataPairing#deleteAlgo(DataTreeNode, AlgoTreeNode, Scanner)}
      * @param keyboard {@link java.util.Scanner} input scanner
      * @require {@link Main#dataTree} and {@link Main#algoTree} are non-null and rooted
      * @require this AlgoDataPairing is the one maintained by Main (i.e. is {@link Main#pairing}).
@@ -401,12 +399,13 @@ public class AlgoDataPairing implements Serializable {
      */
     private void deleteData(AlgoTreeNode source, DataTreeNode cursor, Scanner keyboard) {
         /* Preorder traversal. */
-        if (this.pairs.contains(new AlgoDataPair(source, cursor))) {
+        AlgoDataPair candidate = new AlgoDataPair(source, cursor);
+        if (this.pairs.contains(candidate)) {
             System.out.println("Delete " + cursor.toString() + "? (\"y\"/\"n\")");
             String decision = keyboard.nextLine();
             // Delete this one?
-            if (decision.strip().equals("n")) {
-                pairs.remove(new AlgoDataPair(source, cursor));
+            if (decision.strip().equals("y")) {
+                pairs.remove(candidate);
             }
         }
         // Delete one of its children?

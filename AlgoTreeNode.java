@@ -90,9 +90,22 @@ public class AlgoTreeNode implements Serializable {
         return "AlgoTreeNode";
     }
 
+    /**
+     * @implNote Only checks the {@link AlgoTreeNode#root} parameter
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (root ? 1231 : 1237);
+        return result;
+    }
+
+    /**
+     * @implNote Only checks the {@link AlgoTreeNode#root} parameter
+     */
     @Override
     public boolean equals(Object obj) {
-        // NOTE: This is implemented dangerously.
         if (this == obj)
             return true;
         if (obj == null)

@@ -40,51 +40,34 @@ public class AlgoDataPair implements Serializable {
     }
     
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((algorithm == null) ? 0 : algorithm.hashCode());
+        result = prime * result + ((dataStructure == null) ? 0 : dataStructure.hashCode());
+        return result;
+    }
+    @Override
     public boolean equals(Object obj) {
-        System.out.println("<!> CHECKING EQUALITY");
         if (this == obj)
             return true;
-        if (obj == null) {
-            System.out.println("<!> null???");
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            System.out.println("<!> classes diff??");
+        if (getClass() != obj.getClass())
             return false;
-        }
         AlgoDataPair other = (AlgoDataPair) obj;
         if (algorithm == null) {
-            if (other.algorithm != null) {
-                System.out.println("<!> null algo and non-null other algo");
+            if (other.algorithm != null)
                 return false;
-            }
-        } else if (!algorithm.equals(other.algorithm)) {
-            System.out.println("<!> non-null algo not equal to other algo");
+        } else if (!algorithm.equals(other.algorithm))
             return false;
-        }
         if (dataStructure == null) {
-            if (other.dataStructure != null) {
-                System.out.println("<!> null data and non-null other data");
+            if (other.dataStructure != null)
                 return false;
-            }
-        } else if (!dataStructure.equals(other.dataStructure)) {
-            System.out.println("<!> non-null data not equal to other data");
+        } else if (!dataStructure.equals(other.dataStructure))
             return false;
-        }
         return true;
     }
-
-    /*
-    @Override
-    public boolean equals(Object anObject) {
-        if (! (anObject instanceof AlgoDataPair)) {
-            return false;
-        }
-        AlgoDataPair aPair = (AlgoDataPair) anObject;
-        return this.algorithm.equals(aPair.getAlgorithm())
-                && this.dataStructure.equals(aPair.getDataStructure());
-    }
-    */
-
+    
     
 }
