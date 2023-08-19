@@ -373,7 +373,7 @@ public class Main {
      */
     public static void testSerializationMain(String[] args) {
         dataTree = new DataTree();
-        DataTypeNode node = new DataTypeNode("Sugoma");
+        DataTypeNode node = new DataTypeNode("Sugoma", "adt:sugoma");
         dataTree.setRoot(node);
 
         algoTree = null;

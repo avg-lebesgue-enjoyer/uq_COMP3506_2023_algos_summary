@@ -7,8 +7,6 @@ public class DataStructureNode extends DataTreeNode {
     // MEMBER VARIABLES
     /** Name of this data structure */
     private String name;
-    /** hyperref \ref{} and \label{} parameter to data structure */
-    private String hyperref;
     
     // BOILERPLATE METHODS
     /**
@@ -20,7 +18,7 @@ public class DataStructureNode extends DataTreeNode {
     public DataStructureNode(DataTreeNode parent, String name, String hyperref) {
         super(parent);
         this.name = name;
-        this.hyperref = hyperref;
+        super.setHyperref(hyperref);
     }
 
     public String getName() {
@@ -29,14 +27,6 @@ public class DataStructureNode extends DataTreeNode {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getHyperref() {
-        return hyperref;
-    }
-
-    public void setHyperref(String hyperref) {
-        this.hyperref = hyperref;
     }
 
     @Override
@@ -49,7 +39,7 @@ public class DataStructureNode extends DataTreeNode {
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((hyperref == null) ? 0 : hyperref.hashCode());
+        result = prime * result + ((super.getHyperref() == null) ? 0 : super.getHyperref().hashCode());
         return result;
     }
 
@@ -67,10 +57,10 @@ public class DataStructureNode extends DataTreeNode {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (hyperref == null) {
-            if (other.hyperref != null)
+        if (super.getHyperref() == null) {
+            if (other.getHyperref() != null)
                 return false;
-        } else if (!hyperref.equals(other.hyperref))
+        } else if (!super.getHyperref().equals(other.getHyperref()))
             return false;
         return true;
     }
@@ -83,7 +73,7 @@ public class DataStructureNode extends DataTreeNode {
     public String echoContents() {
         return ""
             + "Name: " + name
-            + "\nhyperref: " + hyperref
+            + "\nhyperref: " + super.getHyperref()
         ;
     }
 }

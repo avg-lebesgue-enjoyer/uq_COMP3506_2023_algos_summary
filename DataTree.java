@@ -230,14 +230,20 @@ public class DataTree implements Serializable {
                     retry = true;
             }
         } while (retry);
+        String hyperref;
         switch (theClass) {
             case "DataTypeNode":
                 // Request details
-                System.out.println("Enter name of type of data structure, as a string:");
+                System.out.println(
+                    "Enter the following details, separated by newline characters:"
+                    + "\n\tName of type of data structure, as a string (e.g. General Linear Structure)"
+                    + "\n\tHyperref \\ref{} and \\label{} parameter, as a string (e.g. adt:general_linear_structure)"
+                );
                 String typeOfStructure = keyboard.nextLine();
+                hyperref = keyboard.nextLine();
                 // Spawn child
                 cursor.getChildren().add(new DataTypeNode(
-                    cursor, typeOfStructure
+                    cursor, typeOfStructure, hyperref
                 ));
                 break;
             case "DataStructureNode":
@@ -248,7 +254,7 @@ public class DataTree implements Serializable {
                     + "\n\tHyperref \\ref{} and \\label{} parameter, as a string (e.g. adt:static_sequence)"
                 );
                 String name = keyboard.nextLine();
-                String hyperref = keyboard.nextLine();
+                hyperref = keyboard.nextLine();
                 // Spawn child
                 cursor.getChildren().add(new DataStructureNode(
                     cursor, name, hyperref

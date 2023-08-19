@@ -4,8 +4,6 @@
  */
 public class AlgorithmNode extends AlgoTreeNode {
     // MEMBER VARIABLES
-    /** hyperref \ref{} and \label{} parameter to algorithm */
-    private String hyperref;
     /** Name of this algorithm */
     private String name;
     
@@ -19,16 +17,8 @@ public class AlgorithmNode extends AlgoTreeNode {
      */
     public AlgorithmNode(AlgoTreeNode parent, String name, String hyperref) {
         super(parent);
-        this.hyperref = hyperref;
         this.name = name;
-    }
-
-    public String getHyperref() {
-        return hyperref;
-    }
-
-    public void setHyperref(String hyperref) {
-        this.hyperref = hyperref;
+        super.setHyperref(hyperref);
     }
 
     public String getName() {
@@ -48,7 +38,7 @@ public class AlgorithmNode extends AlgoTreeNode {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((hyperref == null) ? 0 : hyperref.hashCode());
+        result = prime * result + ((super.getHyperref() == null) ? 0 : super.getHyperref().hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -62,10 +52,10 @@ public class AlgorithmNode extends AlgoTreeNode {
         if (getClass() != obj.getClass())
             return false;
         AlgorithmNode other = (AlgorithmNode) obj;
-        if (hyperref == null) {
-            if (other.hyperref != null)
+        if (super.getHyperref() == null) {
+            if (other.getHyperref() != null)
                 return false;
-        } else if (!hyperref.equals(other.hyperref))
+        } else if (!super.getHyperref().equals(other.getHyperref()))
             return false;
         if (name == null) {
             if (other.name != null)
@@ -83,7 +73,7 @@ public class AlgorithmNode extends AlgoTreeNode {
     public String echoContents() {
         return ""
             + "Name: " + name
-            + "\nhyperref: " + hyperref
+            + "\nhyperref: " + super.getHyperref()
         ;
     }
     

@@ -16,6 +16,8 @@ public class DataTreeNode implements Serializable {
     private List<DataTreeNode> children;
     /** Marker for special root node */
     private boolean root;
+    /** hyperref \ref{} and \label{} parameter */
+    private String hyperref;
 
     // BOILERPLATE METHODS
     /**
@@ -25,6 +27,7 @@ public class DataTreeNode implements Serializable {
         this.parent = null;
         this.children = new LinkedList<>();
         this.root = false;
+        this.hyperref = null;
     }
 
     /**
@@ -35,6 +38,7 @@ public class DataTreeNode implements Serializable {
         this.parent = null;
         this.children = new LinkedList<>();
         this.root = root;
+        this.hyperref = null;
     }
     
     /**
@@ -44,6 +48,7 @@ public class DataTreeNode implements Serializable {
     public DataTreeNode(DataTreeNode parent) {
         this.parent = parent;
         this.children = new LinkedList<>();
+        this.hyperref = null;
     }
 
     public DataTreeNode getParent() {
@@ -63,6 +68,12 @@ public class DataTreeNode implements Serializable {
     }
     public void setRoot(boolean root) {
         this.root = root;
+    }
+    public String getHyperref() {
+        return hyperref;
+    }
+    public void setHyperref(String hyperref) {
+        this.hyperref = hyperref;
     }
 
     @Override

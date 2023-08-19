@@ -11,19 +11,23 @@ public class DataTypeNode extends DataTreeNode {
     /**
      * Constructs a new DataTypeNode
      * @param typeOfDataStructure String description of data structure type
+     * @param hyperref String hyperref \ref{} and \label{} parameter
      */
-    public DataTypeNode(String typeOfDataStructure) {
+    public DataTypeNode(String typeOfDataStructure, String hyperref) {
         super();
         this.typeOfDataStructure = typeOfDataStructure;
+        super.setHyperref(hyperref);
     }
     /**
      * Constructs a new DataTypeNode.
      * @param parent DataTreeNode parent node
      * @param typeOfDataStructure String description of data structure type
+     * @param hyperref String hyperref \ref{} and \label{} parameter
      */
-    public DataTypeNode(DataTreeNode parent, String typeOfDataStructure) {
+    public DataTypeNode(DataTreeNode parent, String typeOfDataStructure, String hyperref) {
         super(parent);
         this.typeOfDataStructure = typeOfDataStructure;
+        super.setHyperref(hyperref);;
     }
 
     public String getTypeOfDataStructure() {
@@ -44,6 +48,7 @@ public class DataTypeNode extends DataTreeNode {
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result + ((typeOfDataStructure == null) ? 0 : typeOfDataStructure.hashCode());
+        result = prime * result + ((super.getHyperref() == null) ? 0 : super.getHyperref().hashCode());
         return result;
     }
 
@@ -61,6 +66,11 @@ public class DataTypeNode extends DataTreeNode {
                 return false;
         } else if (!typeOfDataStructure.equals(other.typeOfDataStructure))
             return false;
+        if (super.getHyperref() == null) {
+            if (other.getHyperref() != null)
+                return false;
+        } else if (!super.getHyperref().equals(other.getHyperref()))
+            return false;
         return true;
     }
     
@@ -71,6 +81,7 @@ public class DataTypeNode extends DataTreeNode {
     @Override
     public String echoContents() {
         return ""
-            + "Class: " + typeOfDataStructure;
+            + "Class: " + typeOfDataStructure
+            + "\nhyperref: " + super.getHyperref();
     }
 }
