@@ -92,6 +92,7 @@ public class AlgoTreeNode implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        // NOTE: This is implemented dangerously.
         if (this == obj)
             return true;
         if (obj == null)
@@ -99,16 +100,6 @@ public class AlgoTreeNode implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         AlgoTreeNode other = (AlgoTreeNode) obj;
-        if (parent == null) {
-            if (other.parent != null)
-                return false;
-        } else if (!parent.equals(other.parent))
-            return false;
-        if (children == null) {
-            if (other.children != null)
-                return false;
-        } else if (!children.equals(other.children))
-            return false;
         if (root != other.root)
             return false;
         return true;

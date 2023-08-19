@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -356,6 +358,9 @@ public class AlgoDataPairing implements Serializable {
             }
         } else {
             System.err.println("<!> why????");
+            LinkedList<AlgoDataPair> asList = new LinkedList<>(this.pairs);
+            System.out.println("<!> " + asList.toString());
+            System.out.println("<!> " + Objects.equals(asList.getFirst(), new AlgoDataPair(cursor, source)));
         }
         // Delete one of its children?
         for (AlgoTreeNode child : cursor.getChildren()) {
