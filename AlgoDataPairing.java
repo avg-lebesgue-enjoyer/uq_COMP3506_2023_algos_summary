@@ -44,6 +44,17 @@ public class AlgoDataPairing implements Serializable {
         );
     }
 
+    /**
+     * Returns true iff this AlgoDataPairing contains an element {@code e}
+     * such that {@code Objects.equals(o, e)}.
+     * @param o Object to test
+     * @return true iff this AlgoDataPairing contains an element 
+     * {@code e} such that {@code Objects.equals(o, e)}
+     */
+    public boolean contains(Object o) {
+        return this.pairs.contains(o);
+    }
+
     // METHODS OF INTEREST
     /**
      * <p> Return a new AlgoDataPairing in which for each pair (D, A) of a
@@ -54,7 +65,7 @@ public class AlgoDataPairing implements Serializable {
      *  <li>The same is true of the children.</li>
      * </ul>
      * <p> I kinda know what I mean by writing this.
-     * <p> Useful for printing maximal data from only minimal data stored.
+     * <p> Useful for printing maximal data from only minimal data entered.
      * @param dataTree DataTree reference data tree
      * @param algoTree AlgoTree reference algo tree
      * @return new AlgoDataPairing with pairs filled in, as described above.

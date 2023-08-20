@@ -25,6 +25,7 @@ public class AlgoDataPrinter {
      * @param dataTree {@link DataTree} to print based on
      * @param pairing {@link AlgoDataPairing} to print based on
      * @return big funny command
+     * @require pairing is <b>full</b>
      */
     public static String writeDataAlgos(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
         StringBuilder out = new StringBuilder();
@@ -46,19 +47,89 @@ public class AlgoDataPrinter {
      * @param pairing {@link AlgoDataPairing} to print based on
      * @param padding String to pad with
      * @param out {@link java.lang.StringBuilder} to append to
+     * @require pairing pairs cursor with at least one non-root AlgoTreeNode
      */
     public static void traverseDataPrintAlgos(AlgoTree algoTree, DataTreeNode cursor, AlgoDataPairing pairing, 
             String padding, StringBuilder out) {
-        /* Preorder traversal */
-        // Work at this node
-        out.append(
-            padding + "\\ifthenelse{"
-            + padding + "\t\\equal{"
-            + padding + "\t\t#1"
-            + padding + "\t}{"
-            + padding + "\t\t\\ref{" + cursor.getHyperref() + "}"
-        );
+        /* Preorder traversal. Could be any traversal. */
+        /* Work at this node */
+        if (cursor instanceof DataTypeNode || cursor instanceof DataStructureNode) {
+            // \ifthenelse call
+            out.append(
+                padding + "\\ifthenelse{"
+                + padding + "\t\\equal{"
+                + padding + "\t\t#1"
+                + padding + "\t}{"
+                + padding + "\t\t\\ref{" + cursor.getHyperref() + "}"
+                + padding + "\t}"
+                + padding + "}{"
+            );
+            // List of algos
+            String nextPadding = padding + "\t";
+            out.append(
+                nextPadding + "\\begin{itemize}[nosep]"
+            );
+            traverseAlgosPrint(
+                algoTree.getRoot(), cursor, pairing, nextPadding + "\t", out
+            );
+            out.append(
+                nextPadding + "\\end{itemize}"
+            );
+            // close \ifthenelse
+            out.append(
+                padding + "}{} % empty ELSE block"
+            );
+        }
+        /* Recurse on children */
+        for (DataTreeNode child : cursor.getChildren()) {
+            traverseDataPrintAlgos(algoTree, child, pairing, padding, out);
+        }
+    }
 
-        // Recurse on children
+    /**
+     * <p> Print list of algos associated to {@link DataTreeNode} data.
+     * <p> Call with {@code cursor} set to {@code algoTree.getHead()}.
+     * @param cursor {@link AlgoTreeNode} position in algoTree
+     * @param data {@link DataTreeNode} to associate with
+     * @param pairing {@link AlgoDataPairing} to print based on
+     * @param padding String to pad with
+     * @param out {@link java.lang.StringBuilder} to append to
+     */
+    private static void traverseAlgosPrint(AlgoTreeNode cursor, DataTreeNode data, AlgoDataPairing pairing, String padding, StringBuilder out) {
+        /* Preorder traversal */
+        /* Work at this node */
+        if (pairing.contains(new AlgoDataPair(cursor, data))) {
+            if (cursor instanceof AlgoTypeNode) {
+                AlgoTypeNode cursorReal = (AlgoTypeNode) cursor;
+                out.append(
+                    padding + "\\item "
+                    + cursorReal.getTypeOfAlgorithm()
+                    + ":"
+                );
+            } else if (cursor instanceof AlgorithmNode) {
+                AlgorithmNode cursorReal = (AlgorithmNode) cursor;
+                out.append(
+                    padding + "\\item " 
+                    + cursorReal.getName()
+                    + " (algo \\ref{" + cursorReal.getHyperref() + "})"
+                );
+            }
+        }
+        /* Recurse on children */
+        if (cursor.hasChildren()) {
+            if (! cursor.isRoot()){
+                out.append(
+                    padding + "\\begin{itemize}[nosep]"
+                );
+            }
+            for (AlgoTreeNode child : cursor.getChildren()) {
+                traverseAlgosPrint(child, data, pairing, padding + "\t", out);
+            }
+            if (! cursor.isRoot()) {
+                out.append(
+                    padding + "\\end{itemize}"
+                );
+            }
+        }
     }
 }

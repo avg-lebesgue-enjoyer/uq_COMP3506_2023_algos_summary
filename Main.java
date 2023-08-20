@@ -33,6 +33,7 @@ public class Main {
         "pair_data_to_algos",
         "pair_algo_to_datas",
         "list_pairing",
+        "write_preamble",
         "serialise"
     };
     /** List of commands that can be executed from {@link Main#main(String[])} */
@@ -113,6 +114,9 @@ public class Main {
                             for (AlgoDataPair pair : pairing.getPairs()) {
                                 System.out.println(pair);
                             }
+                            break;
+                        case "write_preamble":
+                            System.out.println(AlgoDataPrinter.writeDataAlgos(algoTree, dataTree, pairing));
                             break;
                         default:
                             System.err.println("I have a bug :(((");

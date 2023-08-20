@@ -12,10 +12,12 @@ public class AlgoTypeNode extends AlgoTreeNode {
      * Constructs a new AlgoTypeNode
      * @param parent
      * @param typeOfAlgorithm
+     * @param hyperref
      */
-    public AlgoTypeNode(AlgoTreeNode parent, String typeOfAlgorithm) {
+    public AlgoTypeNode(AlgoTreeNode parent, String typeOfAlgorithm, String hyperref) {
         super(parent);
         this.typeOfAlgorithm = typeOfAlgorithm;
+        super.setHyperref(hyperref);
     }
 
     public String getTypeOfAlgorithm() {

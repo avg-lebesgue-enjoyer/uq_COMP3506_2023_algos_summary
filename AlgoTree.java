@@ -233,14 +233,20 @@ public class AlgoTree implements Serializable {
                     retry = true;
             }
         } while (retry);
+        String hyperref;
         switch (theClass) {
             case "AlgoTypeNode":
                 // Request details
-                System.out.println("Enter name of type of algorithm, as a string:");
+                System.out.println(
+                    "Enter the following details, separated by newline characters:"
+                    + "\n\tName of type of algorithm, as a string (e.g. Sort)"
+                    + "\n\tHyperref \\ref{} and \\label{} parameter, as a string (e.g. sec:sort)"
+                );
                 String typeOfAlgorithm = keyboard.nextLine();
+                hyperref = keyboard.nextLine();
                 // Spawn child
                 cursor.getChildren().add(new AlgoTypeNode(
-                    cursor, typeOfAlgorithm
+                    cursor, typeOfAlgorithm, hyperref
                 ));
                 break;
             case "AlgorithmNode":
@@ -251,7 +257,7 @@ public class AlgoTree implements Serializable {
                     + "\n\tHyperref \\ref{} and \\label{} parameter, as a string (e.g. alg:bubble_sort)"
                 );
                 String name = keyboard.nextLine();
-                String hyperref = keyboard.nextLine();
+                hyperref = keyboard.nextLine();
                 // Spawn child
                 cursor.getChildren().add(new AlgorithmNode(
                     cursor, name, hyperref
