@@ -66,13 +66,35 @@ public class AlgoDataPairing implements Serializable {
      * </ul>
      * <p> I kinda know what I mean by writing this.
      * <p> Useful for printing maximal data from only minimal data entered.
-     * @param dataTree DataTree reference data tree
      * @param algoTree AlgoTree reference algo tree
+     * @param dataTree DataTree reference data tree
      * @return new AlgoDataPairing with pairs filled in, as described above.
      * @throws UnsupportedOperationException because I haven't implemented this yet
      */
-    public AlgoDataPairing fill(DataTree dataTree, AlgoTree algoTree) throws UnsupportedOperationException {
+    public AlgoDataPairing fill(AlgoTree algoTree, DataTree dataTree) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Haven't implemented this yet!!");
+    }
+
+    /**
+     * <p> Tests whether this pairing is corrupt, relative to a provided
+     * {@link AlgoTree} and a provided {@link DataTree}.
+     * <p> A pairing P is corrupt relative to an {@link AlgoTree} A and a
+     * {@link DataTree} D iff there is some pair (a, d) in P such that there
+     * is some sub-algo a' of a (possibly a' = a) and some sub-data d' of d
+     * (possibly d' = d) such that (a', d') is not in P.
+     * <p> In essence, a pairing P is <em>not</em> corrupt iff. it is transitively
+     * closed (under sub-structures).
+     * <p> <em>Sub-</em>structures are determined relative to A and D.
+     * <p> A corrupt pairing will not be well-represented by an AlgoDataPrinter.
+     * <p> Corrupt pairings can be made non-corrupt using {@link AlgoDataPairing#fill(AlgoTree, 
+     * DataTree)}.
+     * @param algoTree {@link AlgoTree} to test against ("A")
+     * @param dataTree {@link DataTree} to test against ("D")
+     * @return true iff this pairing is corrupt relative to {@code algoTree}
+     * and {@code dataTree}
+     */
+    public boolean isCorrupt(AlgoTree algoTree, DataTree dataTree) {
+        throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     // COMMON HELPER METHODS
