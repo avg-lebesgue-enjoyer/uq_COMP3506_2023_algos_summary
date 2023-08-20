@@ -120,6 +120,22 @@ public class DataTreeNode implements Serializable {
     public boolean hasChildren() {
         return !children.isEmpty();
     }
+    
+    /**
+     * Get all descendants of this {@link DataTreeNode}.
+     * @require This {@link DataTreeNode} is <b>not part of a cycle</b>. Otherwise,
+     * this method <b>will infinitely loop</b>! This requirement should be met so
+     * long as a <em>tree</em> is maintained.
+     * @return {@link List} of (proper) descendants
+     */
+    public List<DataTreeNode> getDescendants() {
+        List<DataTreeNode> descendants = new LinkedList<>();
+        descendants.addAll(children); // Children are descendants
+        for (DataTreeNode child : children) {
+            descendants.addAll(child.getDescendants()); // So are their descendants
+        }
+        return descendants;
+    }
 
     /**
      * Return the contents of this {@link DataTreeNode}, as a String.

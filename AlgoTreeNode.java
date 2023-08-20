@@ -141,6 +141,22 @@ public class AlgoTreeNode implements Serializable {
     }
 
     /**
+     * Get all descendants of this {@link AlgoTreeNode}.
+     * @require This {@link AlgoTreeNode} is <b>not part of a cycle</b>. Otherwise,
+     * this method <b>will infinitely loop</b>! This requirement should be met so
+     * long as a <em>tree</em> is maintained.
+     * @return {@link List} of (proper) descendants
+     */
+    public List<AlgoTreeNode> getDescendants() {
+        List<AlgoTreeNode> descendants = new LinkedList<>();
+        descendants.addAll(children); // Children are descendants
+        for (AlgoTreeNode child : children) {
+            descendants.addAll(child.getDescendants()); // So are their descendants
+        }
+        return descendants;
+    }
+
+    /**
      * Return the contents of this {@link AlgoTreeNode}, as a String.
      * @return contents of this node
      */

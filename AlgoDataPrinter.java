@@ -19,6 +19,8 @@ public class AlgoDataPrinter {
      *  - sim. Algos -> Datas
      */
 
+
+    // TODO: Change the writing algorithm to look only at leaves!!
     /**
      * <p> Write the big funny command string that will go in the preamble.
      * @param algoTree {@link AlgoTree} to print based on

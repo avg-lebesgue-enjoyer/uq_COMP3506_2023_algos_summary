@@ -20,7 +20,7 @@ public class AlgoDataPairing implements Serializable {
 
     /**
      * Construct AlgoDataPairing from set of pairs.
-     * @param pairs Set<AlgoDataPair> pairs to store in this structure.
+     * @param pairs {@link Set} of pairs to store in this structure.
      */
     public AlgoDataPairing(Set<AlgoDataPair> pairs) {
         this.pairs = pairs;
@@ -57,22 +57,43 @@ public class AlgoDataPairing implements Serializable {
 
     // METHODS OF INTEREST
     /**
-     * <p> Return a new AlgoDataPairing in which for each pair (D, A) of a
-     * data structure D and an algorithm A contained in this AlgoDataPairing,
-     * <ul>
-     *  <li>All subclasses of D are paired with A,</li>
-     *  <li>All subalgorithms of A are paired with D,</li>
-     *  <li>The same is true of the children.</li>
-     * </ul>
-     * <p> I kinda know what I mean by writing this.
+     * <p> Return a new {@link AlgoDataPairing} P in which for each pair (D, A) 
+     * of a data structure D and an algorithm A contained in this AlgoDataPairing,
+     * we have that for all D' sub-structure of D and for all A' sub-algorithm
+     * of A, the pair (A', D') is in P, and nothing else is. D' = D and A' = A
+     * are permissible.
+     * <p> i.e. return a new {@link AlgoDataPairing} in which the set of pairs is
+     * \set*{
+     *      (A', D')
+     *      \given
+     *      \exists (A, D) \in (\text{this AlgoDataPairing}) : \,
+     *      A' \text{ sub-algorithm } A
+     *      \text{ and }
+     *      D' \text{ sub-structure } D
+     * }. In the product poset, this is the downwards closure.
+     * <p> <em>Sub-</em>algos and <em>sub-</em>structures are determined according
+     * to the given {@link AlgoTree} and the given {@link DataTree}.
      * <p> Useful for printing maximal data from only minimal data entered.
-     * @param algoTree AlgoTree reference algo tree
-     * @param dataTree DataTree reference data tree
-     * @return new AlgoDataPairing with pairs filled in, as described above.
+     * @implNote This implementation is <em>very</em> time-inefficient because I kinda 
+     * don't want to bother optimising it. Ironic, given that this is code being written 
+     * for COMP3506, I know.
+     * @param algoTree {@link AlgoTree} reference algo tree
+     * @param dataTree {@link DataTree} reference data tree
+     * @return new {@link AlgoDataPairing} with pairs filled in, as described above.
      * @throws UnsupportedOperationException because I haven't implemented this yet
+     * @see AlgoDataPairing#isCorrupt(AlgoTree, DataTree)
      */
     public AlgoDataPairing fill(AlgoTree algoTree, DataTree dataTree) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Haven't implemented this yet!!");
+        Set<AlgoDataPair> fullPairs = new LinkedHashSet<>();
+        for (AlgoDataPair pair : this.pairs) {
+            for (AlgoTreeNode algoDescendant : pair.getAlgorithm().getDescendants()) {
+                for (DataTreeNode dataDescendant : pair.getDataStructure().getDescendants()) {
+                    fullPairs.add(new AlgoDataPair(algoDescendant, dataDescendant));
+                }
+            }
+        }
+        fullPairs.addAll(this.pairs);
+        return new AlgoDataPairing(fullPairs);
     }
 
     /**
@@ -92,6 +113,7 @@ public class AlgoDataPairing implements Serializable {
      * @param dataTree {@link DataTree} to test against ("D")
      * @return true iff this pairing is corrupt relative to {@code algoTree}
      * and {@code dataTree}
+     * @see AlgoDataPairing#fill(AlgoTree, DataTree)
      */
     public boolean isCorrupt(AlgoTree algoTree, DataTree dataTree) {
         throw new UnsupportedOperationException("Not yet implemented!");
