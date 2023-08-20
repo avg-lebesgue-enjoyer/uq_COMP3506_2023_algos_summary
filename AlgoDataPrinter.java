@@ -1,3 +1,10 @@
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * Static class for printing lists of algos/datas associated with a data/algo.
  */
@@ -19,17 +26,126 @@ public class AlgoDataPrinter {
      *  - sim. Algos -> Datas
      */
 
-
     // TODO: Change the writing algorithm to look only at leaves!!
+    public static String writeDatasAlgos(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
+        // Write the stuff
+        StringBuilder out = new StringBuilder();
+        out.append(
+            "\\newcommand{\\dataprintalgos}[1]{"
+            + "\n\t\\par \\textbf{\\color{magenta}{\\underline{Algorithms}}} this data structure(s) may utilise:"
+        );
+        traverseDataTreeWriteAlgosList(algoTree, dataTree.getRoot(), pairing, out, "\n\t");
+        out.append("\n}");
+        return out.toString();
+    }
+
+    public static void traverseDataTreeWriteAlgosList(AlgoTree algoTree, DataTreeNode cursor, 
+            AlgoDataPairing pairing, StringBuilder out, String padding) {
+        /* Preorder traversal, though any traversal is fine. */
+        /* Work at this node */
+        if (cursor instanceof DataTypeNode || cursor instanceof DataStructureNode) {
+            // \ifthenelse call
+            out.append(
+                padding + "\\ifthenelse{"
+                + padding + "\t\\equal{"
+                + padding + "\t\t#1"
+                + padding + "\t}{"
+                + padding + "\t\t\\ref{" + cursor.getHyperref() + "}"
+                + padding + "\t}"
+                + padding + "}{"
+            );
+            // List of algos
+            String nextPadding = padding + "\t";
+            out.append(
+                nextPadding + "\\begin{itemize}[nosep]"
+            );
+            // FIXME: print algos list
+            out.append(
+                nextPadding + "\\end{itemize}"
+            );
+            // close \ifthenelse
+            out.append(
+                padding + "}{} % empty ELSE block"
+            );
+        }
+        /* Recurse on children */
+        for (DataTreeNode child : cursor.getChildren()) {
+            traverseDataPrintAlgos(algoTree, child, pairing, padding, out);
+        }
+        
+    }
+
+    public static void writeDataAlgos(AlgoTree algoTree, DataTreeNode data, AlgoDataPairing pairing, StringBuilder out, String padding) {
+        /* Get set (list) of algos associated by pairing */
+        Collection<AlgoTreeNode> algos = pairing.getPairs().stream()
+                .filter(
+                    (pair) -> Objects.equals(pair.getDataStructure(), data)
+                ).map(
+                    (pair) -> pair.getAlgorithm()
+                ).toList();
+        algos = upwardsClosureAlgos(algoTree, algos);
+        traverseAlgosWrite(algoTree.getRoot(), algos, out, padding);
+    }
+
+    public static Collection<AlgoTreeNode> upwardsClosureAlgos(AlgoTree algoTree, Collection<AlgoTreeNode> algos) {
+        Set<AlgoTreeNode> closed = new LinkedHashSet<>();
+        LinkedList<AlgoTreeNode> path = new LinkedList<>();
+        traverseCloseAlgos(algoTree.getRoot(), algos, closed, path);
+        return closed;
+    }
+
+    public static void traverseCloseAlgos(AlgoTreeNode cursor, Collection<AlgoTreeNode> algos, Collection<AlgoTreeNode> closed, LinkedList<AlgoTreeNode> path) {
+        /* Preorder traversal with path */
+        path.addFirst(cursor);
+        /* Work at this node */
+        if (algos.contains(cursor)) {
+            // close upwards from cursor. Exit early if we start hitting things we've already closed.
+            int index = 0;
+            while (index < path.size() && (! closed.contains(path.get(index)))) {
+                closed.add(path.get(index));
+                index++;
+            }
+        }
+        /* Recurse on children */
+        for (AlgoTreeNode child : cursor.getChildren()) {
+            traverseCloseAlgos(child, algos, closed, path);
+        }
+        path.remove(cursor);
+    }
+
+    public static void traverseAlgosWrite(AlgoTreeNode cursor, Collection<AlgoTreeNode> algos, StringBuilder out, String padding) {
+        /* Preorder traversal */
+        /* Work at this node */
+        if (! algos.contains(cursor)) {
+            return;
+        } 
+        // FIXME: I gave up writing this
+        /*else if (isMinimal(cursor, algos)) {
+            writeDescendants(cursor, padding);
+        } else {
+            if (cursor instanceof AlgoTypeNode) {
+                AlgoTypeNode cursorReal = (AlgoTypeNode) cursor;
+                out.append(
+                    padding + cursorReal.getTypeOfAlgorithm() + ":"
+                );
+            }
+        }
+        */
+    }
+    
+
+
+    // OLDER METHODS
     /**
      * <p> Write the big funny command string that will go in the preamble.
+     * BUG: Doesn't work unless things are closed off properly.
      * @param algoTree {@link AlgoTree} to print based on
      * @param dataTree {@link DataTree} to print based on
      * @param pairing {@link AlgoDataPairing} to print based on
      * @return big funny command
      * @require pairing is <b>full</b>
      */
-    public static String writeDataAlgos(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
+    public static String oldwriteDataAlgos(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
         StringBuilder out = new StringBuilder();
         out.append(
             "\\newcommand{\\dataprintalgos}[1]{"
@@ -134,4 +250,5 @@ public class AlgoDataPrinter {
             }
         }
     }
+    
 }
