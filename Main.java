@@ -116,7 +116,7 @@ public class Main {
                             }
                             break;
                         case "write_preamble":
-                            System.out.println(AlgoDataPrinter.oldwriteDataAlgos(algoTree, dataTree, pairing));
+                            System.out.println(AlgoDataPrinter.writeDA(algoTree, dataTree, pairing));
                             break;
                         default:
                             System.err.println("I have a bug :(((");

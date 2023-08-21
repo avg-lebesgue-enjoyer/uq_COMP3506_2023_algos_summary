@@ -1,8 +1,10 @@
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * <p> Tree of algorithms and algorithm types.
@@ -300,6 +302,26 @@ public class AlgoTree implements Serializable {
             }
         } while (retry); // index successfully read
         cursor = cursor.getChildren().get(index);
+    }
+
+    /**
+     * Return a {@link java.util.Set} of {@link AlgoTreeNode} objects
+     * which are ancestors of some {@link AlgoTreeNode} in a given
+     * {@link java.util.Set} of {@link AlgoTreeNode}s.
+     * @param algos {@link java.util.Set} of {@link AlgoTreeNode} objects
+     * to close
+     */
+    public static Set<AlgoTreeNode> ancestorClosure(Set<AlgoTreeNode> algos) {
+        Set<AlgoTreeNode> returnMe = new LinkedHashSet<>();
+        algos.stream()
+            .forEach( (algo) -> {
+                AlgoTreeNode ancestor = algo;
+                while ((! ancestor.isRoot()) && (! returnMe.contains(ancestor))) {
+                    returnMe.add(ancestor);
+                    ancestor = ancestor.getParent();
+                }
+            });
+        return returnMe;
     }
 }
 

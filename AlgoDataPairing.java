@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -170,6 +171,38 @@ public class AlgoDataPairing implements Serializable {
         }
         // Neither this node nor any of its descendants were selected.
         return null;
+    }
+
+    /**
+     * Return a {@link java.util.Set} of {@link AlgoTreeNode} objects which
+     * are related to a given {@link DataTreeNode}.
+     * @param data {@link DataTreeNode} to get algos associated to
+     * @return {@link java.util.Set} of {@link} AlgoTreeNode objects which
+     * are paired with {@code data}
+     */
+    public Set<AlgoTreeNode> getAlgos(DataTreeNode data) {
+        return new LinkedHashSet<>(
+            this.getPairs().stream()
+                .filter((pair) -> Objects.equals(pair.getDataStructure(), data))
+                .map((pair) -> pair.getAlgorithm())
+                .toList()
+        );
+    }
+
+    /**
+     * Return a {@link java.util.Set} of {@link DataTreeNode} objects which
+     * are related to a given {@link AlgoTreeNode}.
+     * @param algo {@link AlgoTreeNode} to get algos associated to
+     * @return {@link java.util.Set} of {@link} DataTreeNode objects which
+     * are paired with {@code algo}
+     */
+    public Set<DataTreeNode> getDatas(AlgoTreeNode algo) {
+        return new LinkedHashSet<>(
+            this.getPairs().stream()
+                .filter((pair) -> Objects.equals(pair.getAlgorithm(), algo))
+                .map((pair) -> pair.getDataStructure())
+                .toList()
+        );
     }
 
     // METHODS for appending pairs

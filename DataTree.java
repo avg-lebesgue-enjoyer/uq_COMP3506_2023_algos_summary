@@ -1,8 +1,10 @@
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * <p> Tree of data structures and data structure types.
@@ -297,6 +299,30 @@ public class DataTree implements Serializable {
             }
         } while (retry); // index successfully read
         cursor = cursor.getChildren().get(index);
+    }
+
+    /**
+     * <p> Return a Set<DataTreeNode> of all nodes stored in this DataTree
+     * <b>except</b> the root
+     * @return {@link java.util.Set} of all nodes except the root
+     */
+    public Set<DataTreeNode> toSet() {
+        Set<DataTreeNode> nodes = new LinkedHashSet<>();
+        this.getRoot().getChildren().stream()
+            .forEach((child) -> toSetHelper(child, nodes));
+        return nodes;
+    }
+
+    /**
+     * Prorder traversal to chuck stuff in the set
+     * @param cursor
+     * @param nodes
+     * @see DataTree#toSet()
+     */
+    private void toSetHelper(DataTreeNode cursor, Set<DataTreeNode> nodes) {
+        nodes.add(cursor);
+        cursor.getChildren().stream()
+            .forEach((child) -> toSetHelper(child, nodes));
     }
 }
 

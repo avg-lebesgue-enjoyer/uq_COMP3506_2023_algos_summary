@@ -25,7 +25,127 @@ public class AlgoDataPrinter {
      *  - Print ^^, for all data structures, in *preamble* LaTeX.
      *  - sim. Algos -> Datas
      */
+    public static String writeDA(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
+        StringBuilder out = new StringBuilder();
+        String padding = "\n\t";
+        out.append(
+            "\\newcommand{\\dataprintalgos}[1]{"
+            + padding + "\\par \\textbf{\\color{magenta}{\\underline{Algorithms}}} this data structure(s) may utilise:"
+        );
+        // NOTE: Yes, this is inefficent. No, I don't care.
+        for (DataTreeNode data : dataTree.toSet()) { // DataTree.toSet() doesn't return the ROOT for this reason.
+            writeGivenData(algoTree, data, pairing, out, padding);
+        }
+        out.append("\n}");
+        return out.toString();
+    }
 
+    /**
+     * <p> Write piece of preamble for given {@link DataTreeNode} data.
+     * @param algoTree {@link AlgoTree} tree
+     * @param data {@link DataTreeNode} given data structure (type)
+     * @param pairing {@link ALgoDataPairing} pairing
+     * @param out {@link java.lang.StringBuilder} to write to
+     * @param padding String to pad with
+     */
+    private static void writeGivenData(AlgoTree algoTree, DataTreeNode data,
+            AlgoDataPairing pairing, StringBuilder out, String padding) {
+        out.append(
+            padding + "\\ifthenelse{"
+            + padding + "\t\\equal{"
+            + padding + "\t\t#1"
+            + padding + "\t}{"
+            + padding + "\t\t\\ref{" + data.getHyperref() + "}"
+            + padding + "\t}"
+            + padding + "}{ % IF"
+        );
+        out.append(
+            padding + "\t\\begin{itemize}[nosep]"
+        );
+        // PRINT ALGORITHMS
+        writeAlgosForGivenData(algoTree, data, pairing, out, padding + "\t\t");
+        out.append(
+            padding + "\t\\end{itemize}"
+        );
+        out.append(
+            padding + "}{} % empty ELSE block"
+        );
+    }
+
+    /**
+     * <p> Write list of algos for a given data structure.
+     * <p> Doesn't write surrounding \begin{itemize}[nosep] or the surrounding
+     * \end{itemize}
+     * @param algoTree {@link AlgoTree} to print relative to
+     * @param data {@link DataTreeNode} to print relative to
+     * @param pairing {@link AlgoDataPairing} to print relative to
+     * @param out {@link java.util.StringBuilder} to write to
+     * @param padding String to pad with
+     */
+    private static void writeAlgosForGivenData(AlgoTree algoTree, DataTreeNode data, 
+            AlgoDataPairing pairing, StringBuilder out, String padding) {
+        // Close everything up
+        final Set<AlgoTreeNode> algos = AlgoTree.ancestorClosure(pairing.getAlgos(data));
+        // Write, now that things are closed
+        algoTree.getRoot().getChildren().stream()
+                .forEach( (child) -> 
+                    writeAlgosForGivenDataHelper( // FIXME: finish implementing!
+                        child, algos, out, padding
+                    )
+                );
+    }
+
+    /**
+     * <p> Helper method for {@link AlgoDataPrinter#writeAlgosForGivenData(AlgoTree, 
+     * DataTreeNode, AlgoDataPairing, StringBuilder, String)}.
+     * @implNote Preorder traversal.
+     * @require {@code algos} is closed under ancestors.
+     * @param cursor {@link AlgoTreeNode} to print relative to
+     * @param algos {@link java.util.Set} of {@link AlgoTreeNode} objects to include in print,
+     * along with descendants of nodes in this set
+     * @param out {@link java.util.StringBuilder} to write to
+     * @param padding String to pad with
+     */
+    private static void writeAlgosForGivenDataHelper(AlgoTreeNode cursor, Set<AlgoTreeNode> algos, StringBuilder out, String padding) {
+        /* Preorder traversal */
+        /* Work at this node */
+        if (! algos.contains(cursor)) {
+            return;
+        }
+        // If we should be printing this node,
+        if (cursor instanceof AlgoTypeNode) {
+            AlgoTypeNode cursorReal = (AlgoTypeNode) cursor;
+            out.append(
+                padding + "\\item <!> " + cursorReal.getTypeOfAlgorithm()
+                + ":"
+            );
+        } else if (cursor instanceof AlgorithmNode) {
+            AlgorithmNode cursorReal = (AlgorithmNode) cursor;
+            out.append(
+                padding + "\\item <!> " + cursorReal.getName()
+                + " (algo \ref{" + cursorReal.getHyperref() + "})"
+            );
+        } else {
+            System.err.println("Corrupt data!");
+        }
+        //if (cursor IS LOWEST DOWN) { // FIXME: implement
+        //    // FIXME: print all descendants hierarchically
+        //}
+        /* Recurse on children */
+        if (cursor.hasChildren()) {
+            out.append(
+                padding + "\\begin{itemize}[nosep]"
+            );
+            for (AlgoTreeNode child : cursor.getChildren()) {
+                writeAlgosForGivenDataHelper(child, algos, out, padding + "\t");
+            }
+            out.append(
+                padding + "\\end{itemize}"
+            );
+        }
+    }
+    
+    // OLDER METHODS
     // TODO: Change the writing algorithm to look only at leaves!!
     public static String writeDatasAlgos(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
         // Write the stuff
@@ -135,7 +255,7 @@ public class AlgoDataPrinter {
     
 
 
-    // OLDER METHODS
+    // MUCH OLDER METHODS
     /**
      * <p> Write the big funny command string that will go in the preamble.
      * BUG: Doesn't work unless things are closed off properly.
