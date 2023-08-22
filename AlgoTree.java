@@ -323,6 +323,24 @@ public class AlgoTree implements Serializable {
             });
         return returnMe;
     }
+
+    /**
+     * Return true iff {@code algo} has no descendants which are in {@code algos}.
+     * @require algos is closed under ancestors
+     * @param algo {@link AlgoTreeNode} to test
+     * @param algos {@link java.util.Set} of {@link AlgoTreeNode} objects to test
+     * relative to
+     * @return truee iff {@code algo} has no descendants which are in {@code algos}
+     */
+    public static boolean isLowest(AlgoTreeNode algo, Set<AlgoTreeNode> algos) {
+        // It suffices only to check *children* because algos is closed under ancestors.
+        // If algos is not closed under ancestors, we would need to check grandchildren
+        // etc.
+        return algo.getChildren().stream()
+            .allMatch( (child) -> 
+                ! algos.contains(child)
+            );
+    }
 }
 
 /**

@@ -96,6 +96,32 @@ public class AlgoDataPrinter {
     }
 
     /**
+     * <p> Prints out {@code cursor} in the {@code itemize} environment.
+     * <p> Helper method for {@link AlgoDataPrinter#writeAlgosForGivenDataHelper}
+     * and {@link AlgoDataPrinter#writeAlgosForGivenDataHelperHelper}.
+     * @param cursor {@link AlgoTreeNode} to print
+     * @param out {@link StringBuilder} to write to
+     * @param padding String to pad with
+     */
+    private static void writeCursorAlgo(AlgoTreeNode cursor, StringBuilder out, String padding) {
+        if (cursor instanceof AlgoTypeNode) {
+            AlgoTypeNode cursorReal = (AlgoTypeNode) cursor;
+            out.append(
+                padding + "\\item " + cursorReal.getTypeOfAlgorithm()
+                + ":"
+            );
+        } else if (cursor instanceof AlgorithmNode) {
+            AlgorithmNode cursorReal = (AlgorithmNode) cursor;
+            out.append(
+                padding + "\\item " + cursorReal.getName()
+                + " (algo \\ref{" + cursorReal.getHyperref() + "})"
+            );
+        } else {
+            System.err.println("Corrupt data!");
+        }
+    }
+
+    /**
      * <p> Helper method for {@link AlgoDataPrinter#writeAlgosForGivenData(AlgoTree, 
      * DataTreeNode, AlgoDataPairing, StringBuilder, String)}.
      * @implNote Preorder traversal.
@@ -113,24 +139,15 @@ public class AlgoDataPrinter {
             return;
         }
         // If we should be printing this node,
-        if (cursor instanceof AlgoTypeNode) {
-            AlgoTypeNode cursorReal = (AlgoTypeNode) cursor;
-            out.append(
-                padding + "\\item <!> " + cursorReal.getTypeOfAlgorithm()
-                + ":"
-            );
-        } else if (cursor instanceof AlgorithmNode) {
-            AlgorithmNode cursorReal = (AlgorithmNode) cursor;
-            out.append(
-                padding + "\\item <!> " + cursorReal.getName()
-                + " (algo \\ref{" + cursorReal.getHyperref() + "})"
-            );
-        } else {
-            System.err.println("Corrupt data!");
+        writeCursorAlgo(cursor, out, padding);
+        if (AlgoTree.isLowest(cursor, algos)) {
+            cursor.getChildren().stream()
+                .forEach( (child) ->
+                    writeAlgosForGivenDataHelperHelper(
+                        child, out, padding + "\t"
+                    )
+                );
         }
-        //if (cursor IS LOWEST DOWN) { // FIXME: implement
-        //    // FIXME: print all descendants hierarchically
-        //}
         /* Recurse on children */
         if (cursor.hasChildren()) {
             out.append(
@@ -138,6 +155,32 @@ public class AlgoDataPrinter {
             );
             for (AlgoTreeNode child : cursor.getChildren()) {
                 writeAlgosForGivenDataHelper(child, algos, out, padding + "\t");
+            }
+            out.append(
+                padding + "\\end{itemize}"
+            );
+        }
+    }
+
+    /**
+     * <p> Prints all descendants of {@code cursor} to {@code out} with {@code padding}, along with {@code cursor}
+     * itself.
+     * <p> Method is named terribly because I thought it was funny.
+     * @param cursor {@link AlgoTreeNode} to print descendants of
+     * @param out {@link StringBuilder} to write to
+     * @param padding String to pad with
+     */
+    private static void writeAlgosForGivenDataHelperHelper(AlgoTreeNode cursor, StringBuilder out, String padding) {
+        /* Preorder traversal */
+        /* Work at this node */
+        writeCursorAlgo(cursor, out, padding);
+        /* Recurse on children */
+        if (cursor.hasChildren()) {
+            out.append(
+                padding + "\\begin{itemize}[nosep]"
+            );
+            for (AlgoTreeNode child : cursor.getChildren()) {
+                writeAlgosForGivenDataHelperHelper(child, out, padding + "\t");
             }
             out.append(
                 padding + "\\end{itemize}"
