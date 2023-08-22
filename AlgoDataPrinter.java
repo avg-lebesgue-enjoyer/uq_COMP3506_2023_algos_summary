@@ -123,7 +123,7 @@ public class AlgoDataPrinter {
             AlgorithmNode cursorReal = (AlgorithmNode) cursor;
             out.append(
                 padding + "\\item <!> " + cursorReal.getName()
-                + " (algo \ref{" + cursorReal.getHyperref() + "})"
+                + " (algo \\ref{" + cursorReal.getHyperref() + "})"
             );
         } else {
             System.err.println("Corrupt data!");
