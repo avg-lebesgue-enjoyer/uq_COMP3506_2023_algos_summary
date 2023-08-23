@@ -1,6 +1,5 @@
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Set;
@@ -24,6 +23,15 @@ public class AlgoDataPrinter {
      *  - Print ^^, in *preamble* LaTeX.
      *  - Print ^^, for all data structures, in *preamble* LaTeX.
      *  - sim. Algos -> Datas
+     */
+
+    // METHODS FOR WRITING lists_preamble.tex: \dataprintalgos
+    /**
+     * <p> Return a string to go in the preamble, for {@code \dataprintalgos}.
+     * @param algoTree {@link AlgoTree} to print relative to
+     * @param dataTree {@link DataTree} to print relative to
+     * @param pairing {@link AlgoDataPairing} to print relative to
+     * @return String with LaTeX implementation of {@code \dataprintalgos}
      */
     public static String writeDA(AlgoTree algoTree, DataTree dataTree, AlgoDataPairing pairing) {
         StringBuilder out = new StringBuilder();

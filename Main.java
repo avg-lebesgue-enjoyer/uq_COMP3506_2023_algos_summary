@@ -60,11 +60,6 @@ public class Main {
         try (Scanner keyboard = new Scanner(System.in)) {
             // Reset filenames?
             System.out.println("Would you like to reset your filenames? \"y\"/else");
-            System.out.println(
-                "Note: only dataTree is actually implemented at the "
-                + "moment, but algoTree is necessary for deserialisation. "
-                + "pairing is not even specified in the code, so you can leave it blank."
-            );
             if (keyboard.nextLine().equals("y")) {
                 resetFilenames(keyboard);
             }
