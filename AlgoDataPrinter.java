@@ -148,21 +148,23 @@ public class AlgoDataPrinter {
         }
         // If we should be printing this node,
         writeCursorAlgo(cursor, out, padding);
-        if (AlgoTree.isLowest(cursor, algos)) {
-            cursor.getChildren().stream()
-                .forEach( (child) ->
-                    writeAlgosForGivenDataHelperHelper(
-                        child, out, padding + "\t"
-                    )
-                );
-        }
+        
         /* Recurse on children */
         if (cursor.hasChildren()) {
             out.append(
-                padding + "\\begin{itemize}[nosep]"
+                padding + "\\begin{itemize}[nosep]" //+ " <!> " + cursor.getHyperref()
             );
-            for (AlgoTreeNode child : cursor.getChildren()) {
-                writeAlgosForGivenDataHelper(child, algos, out, padding + "\t");
+            if (AlgoTree.isLowest(cursor, algos)) {
+                cursor.getChildren().stream()
+                    .forEach( (child) ->
+                        writeAlgosForGivenDataHelperHelper(
+                            child, out, padding + "\t"
+                        )
+                    );
+            } else {
+                for (AlgoTreeNode child : cursor.getChildren()) {
+                    writeAlgosForGivenDataHelper(child, algos, out, padding + "\t");
+                }
             }
             out.append(
                 padding + "\\end{itemize}"
