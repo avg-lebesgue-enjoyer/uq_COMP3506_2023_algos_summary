@@ -152,7 +152,7 @@ public class AlgoDataPrinter {
         /* Recurse on children */
         if (cursor.hasChildren()) {
             out.append(
-                padding + "\\begin{itemize}[nosep]" //+ " <!> " + cursor.getHyperref()
+                padding + "\\begin{itemize}[nosep]"
             );
             if (AlgoTree.isLowest(cursor, algos)) {
                 cursor.getChildren().stream()

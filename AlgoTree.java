@@ -134,7 +134,7 @@ public class AlgoTree implements Serializable {
                             + "\n\tEnter \"y\" to confirm"
                             + "\n\tEnter any other string to cancel"
                         );
-                        if (keyboard.nextLine() == "y") {
+                        if ("y".equals(keyboard.nextLine())) {
                             this.reRoot();
                             System.out.println("Tree re-rooted (rip lol).");
                         } else {

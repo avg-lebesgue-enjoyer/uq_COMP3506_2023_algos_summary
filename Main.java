@@ -34,6 +34,7 @@ public class Main {
         "pair_algo_to_datas",
         "list_pairing",
         "write_preamble",
+        "EMPTY_ITEMS",
         "serialise"
     };
     /** List of commands that can be executed from {@link Main#main(String[])} */
@@ -112,6 +113,14 @@ public class Main {
                             break;
                         case "write_preamble":
                             System.out.println(AlgoDataPrinter.writeDA(algoTree, dataTree, pairing));
+                            break;
+                        case "EMPTY_ITEMS":
+                            System.out.println(
+                                "Are you sure that you like to kill it all? (\"kill\"/else)"
+                            );
+                            if (keyboard.nextLine().strip().equals("kill")) {
+                                emptyItems();
+                            }
                             break;
                         default:
                             System.err.println("I have a bug :(((");
