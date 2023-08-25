@@ -10,5 +10,3 @@
 <ul>
   <li>lists_preamble.tex (default filepath: "./uq_COMP3506_algos_summary/saved_data/lists_preamble.tex")</li>
 </ul>
-
-<p><b>Current functionality:</b> Browse the tree <em>dataTree.ser</em> of data structures.</p>
