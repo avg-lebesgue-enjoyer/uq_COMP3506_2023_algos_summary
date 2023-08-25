@@ -67,14 +67,31 @@ public class AlgoDataPrinter {
             + padding + "\t}"
             + padding + "}{ % IF"
         );
-        out.append(
-            padding + "\t\\begin{itemize}[nosep]"
-        );
-        // PRINT ALGORITHMS
-        writeAlgosForGivenData(algoTree, data, pairing, out, padding + "\t\t");
-        out.append(
-            padding + "\t\\end{itemize}"
-        );
+        
+        /* COLLECT ALGORITHMS TO PRINT */
+        Set<AlgoTreeNode> algos = pairing.getAlgos(data);
+        // Close under data node ancestors
+        DataTreeNode ancestor = data.getParent();
+        while (ancestor != null) {
+            algos.addAll(pairing.getAlgos(ancestor));
+            ancestor = ancestor.getParent();
+        }
+
+        /* PRINT ALGORITHMS */
+        if (! algos.isEmpty()) {
+            out.append(
+                padding + "\t\\begin{itemize}[nosep]"
+            );
+            writeAlgosForGivenData(algoTree, data, algos, out, padding + "\t\t");
+            out.append(
+                padding + "\t\\end{itemize}"
+            );
+            
+        } else {
+            out.append(
+                padding + "\t(none yet)"
+            );
+        }
         out.append(
             padding + "}{} % empty ELSE block"
         );
@@ -86,19 +103,21 @@ public class AlgoDataPrinter {
      * \end{itemize}
      * @param algoTree {@link AlgoTree} to print relative to
      * @param data {@link DataTreeNode} to print relative to
-     * @param pairing {@link AlgoDataPairing} to print relative to
+     * @param algos {@link java.util.Set} of {@link AlgoTreeNode}s to print relative to
      * @param out {@link java.util.StringBuilder} to write to
      * @param padding String to pad with
+     * @require {@code algos} is closed under data node ancestors
      */
     private static void writeAlgosForGivenData(AlgoTree algoTree, DataTreeNode data, 
-            AlgoDataPairing pairing, StringBuilder out, String padding) {
-        // Close everything up
-        final Set<AlgoTreeNode> algos = AlgoTree.ancestorClosure(pairing.getAlgos(data));
+            Set<AlgoTreeNode> algos, StringBuilder out, String padding) {
+        // Close under ancestors of algorithms
+        final Set<AlgoTreeNode> algosReal = AlgoTree.ancestorClosure(algos);
+        
         // Write, now that things are closed
         algoTree.getRoot().getChildren().stream()
                 .forEach( (child) -> 
                     writeAlgosForGivenDataHelper( // FIXME: finish implementing!
-                        child, algos, out, padding
+                        child, algosReal, out, padding
                     )
                 );
     }
