@@ -29,7 +29,8 @@ public class DataTree implements Serializable {
         "REROOT"
     };
     private static String[] nonRootBrowseCommandsArray = {
-        "step_up"
+        "step_up",
+        "murder"
     };
     /** Browse commands for any node */
     private static List<String> defaultBrowseCommands = Arrays.asList(defaultBrowseCommandsArray);
@@ -141,6 +142,21 @@ public class DataTree implements Serializable {
                         break;
                     case "step_up":
                         cursor = cursor.getParent();
+                        break;
+                    case "murder":
+                        System.out.println(
+                            "Are you sure you would like to murder this node?"
+                            + "\n\tEnter \"y\" to confirm"
+                            + "\n\tEnter any other string to cancel"
+                        );
+                        if ("y".equals(keyboard.nextLine())) {
+                            DataTreeNode old = cursor;
+                            cursor = cursor.getParent();
+                            cursor.getChildren().remove(old);
+                            System.out.println("*bang*");
+                        } else {
+                            System.out.println("Operation aborted.");
+                        }
                         break;
                     default:
                         System.err.println("I've got a bug");
