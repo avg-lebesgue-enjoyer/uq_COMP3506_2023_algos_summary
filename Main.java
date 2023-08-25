@@ -1,8 +1,15 @@
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +31,8 @@ public class Main {
     private static AlgoDataPairing pairing;
     /** filename to pairing.ser, from AlgosSummary */
     private static String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
+    /** filename to lists_preamble.tex, from AlgosSummary */
+    private static String listsPreambleFilename = "uq_COMP3506_2023_algos_summary/saved_data/lists_preamble.tex";
     
     /** Array of commands that can be executed from {@link Main#main(String[])} */
     private static final String[] commandsArray = {
@@ -112,7 +121,17 @@ public class Main {
                             }
                             break;
                         case "write_preamble":
-                            System.out.println(AlgoDataPrinter.writeDA(algoTree, dataTree, pairing));
+                            // Thanks, https://stackoverflow.com/a/23221771
+                            try {
+                                Files.write(
+                                    Paths.get(listsPreambleFilename), 
+                                    AlgoDataPrinter.writeDA(algoTree, dataTree, pairing).getBytes(StandardCharsets.UTF_8),
+                                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE
+                                );
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println("~ lists_preamble.tex written at location ./" + listsPreambleFilename);
                             break;
                         case "EMPTY_ITEMS":
                             System.out.println(
@@ -238,6 +257,8 @@ public class Main {
         algoTreeFilename = keyboard.nextLine();
         System.out.println("Input relative filepath to pairing.ser, from the location of execution:");
         pairingFilename = keyboard.nextLine();
+        System.out.println("Input relative filepath to lists_preamble.tex, from the location of execution:");
+        listsPreambleFilename = keyboard.nextLine();
         System.out.println("~~~~ filenames reset");
     }
 
