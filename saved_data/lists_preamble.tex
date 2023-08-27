@@ -16,6 +16,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -45,6 +46,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -74,6 +76,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -103,6 +106,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -132,6 +136,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -161,6 +166,7 @@
 					\item Insertion sort (algo \ref{alg:insertion_sort})
 					\item Merge sort (algo \ref{alg:merge_sort})
 					\item Quick sort (algo \ref{alg:quick_sort})
+					\item Heap Sort (algo \ref{alg:heap_sort})
 				\end{itemize}
 				\item Non-comparison sort:
 				\begin{itemize}[nosep]
@@ -196,6 +202,24 @@
 		\equal{
 			#1
 		}{
+			\ref{adt:priority_queue}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{adt:adaptable_priority_queue}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
 			\ref{adt:tree}
 		}
 	}{ % IF
@@ -209,5 +233,23 @@
 		}
 	}{ % IF
 		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{adt:heap}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Heap Methods:
+			\begin{itemize}[nosep]
+				\item Upheap (algo \ref{alg:upheap})
+				\item Downheap (algo \ref{alg:downheap})
+				\item Heap.build() (algo \ref{alg:heap_build})
+				\item Heap.insert() (algo \ref{alg:heap_insert})
+				\item Heap.removeMin() (algo \ref{alg:heap_remove_min})
+			\end{itemize}
+		\end{itemize}
 	}{} % empty ELSE block
 }
