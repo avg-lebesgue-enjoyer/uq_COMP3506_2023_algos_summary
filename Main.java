@@ -18,18 +18,18 @@ public class Main {
     // MEMBER VARIABLES
     /** DataTree to maintain */
     private static DataTree dataTree;
-    /** filename to dataTree.ser, from AlgosSummary */
-    private static String dataTreeFilename = "uq_COMP3506_2023_algos_summary/saved_data/dataTree.ser";
+    /** filename to dataTree.ser, from uq_COMP3506_2023_algos_summary */
+    private static String dataTreeFilename = "./saved_data/dataTree.ser";
     /** AlgoTree to maintain */
     private static AlgoTree algoTree;
-    /** filename to algoTree.ser, from AlgosSummary */
-    private static String algoTreeFilename = "uq_COMP3506_2023_algos_summary/saved_data/algoTree.ser";
+    /** filename to algoTree.ser, from uq_COMP3506_2023_algos_summary */
+    private static String algoTreeFilename = "./saved_data/algoTree.ser";
     /** AlgoDataPairing to maintain */
     private static AlgoDataPairing pairing;
-    /** filename to pairing.ser, from AlgosSummary */
-    private static String pairingFilename = "uq_COMP3506_2023_algos_summary/saved_data/pairing.ser";
-    /** filename to lists_preamble.tex, from AlgosSummary */
-    private static String listsPreambleFilename = "uq_COMP3506_2023_algos_summary/saved_data/lists_preamble.tex";
+    /** filename to pairing.ser, from uq_COMP3506_2023_algos_summary */
+    private static String pairingFilename = "./saved_data/pairing.ser";
+    /** filename to lists_preamble.tex, from uq_COMP3506_2023_algos_summary */
+    private static String listsPreambleFilename = "./saved_data/lists_preamble.tex";
     
     /** Array of commands that can be executed from {@link Main#main(String[])} */
     private static final String[] commandsArray = {
