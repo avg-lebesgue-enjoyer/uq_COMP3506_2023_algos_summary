@@ -252,4 +252,22 @@
 			\end{itemize}
 		\end{itemize}
 	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{adt:set}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{adt:map}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
 }
