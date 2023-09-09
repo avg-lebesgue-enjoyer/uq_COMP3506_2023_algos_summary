@@ -256,6 +256,96 @@
 		\equal{
 			#1
 		}{
+			\ref{dat:bin_search_tree}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Search:
+			\begin{itemize}[nosep]
+				\item Binary search (algo \ref{alg:binsearch})
+			\end{itemize}
+			\item Binary Search Tree Methods:
+			\begin{itemize}[nosep]
+				\item BinSearchTree.remove() (algo \ref{alg:bin_search_tree_remove})
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:avl_tree}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Search:
+			\begin{itemize}[nosep]
+				\item Binary search (algo \ref{alg:binsearch})
+			\end{itemize}
+			\item Binary Search Tree Methods:
+			\begin{itemize}[nosep]
+				\item BinSearchTree.remove() (algo \ref{alg:bin_search_tree_remove})
+			\end{itemize}
+			\item AVL Tree Methods:
+			\begin{itemize}[nosep]
+				\item AVLTree.insert(), AVLTree.remove() (algo \ref{alg:avl_tree_insert_remove})
+				\item AVLTree.rebalance(), AVLTree.triNodeRestructuring() (algo \ref{alg:avl_tree_rebalance})
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:splay_tree}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Search:
+			\begin{itemize}[nosep]
+				\item Binary search (algo \ref{alg:binsearch})
+			\end{itemize}
+			\item Binary Search Tree Methods:
+			\begin{itemize}[nosep]
+				\item BinSearchTree.remove() (algo \ref{alg:bin_search_tree_remove})
+			\end{itemize}
+			\item Splay Tree Methods:
+			\begin{itemize}[nosep]
+				\item SplayTree.splay() (algo \ref{alg:splay})
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:multi_way_search_tree}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{nts:red_black_tree}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{nts:b_tree}
+		}
+	}{ % IF
+		(none yet)
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
 			\ref{adt:set}
 		}
 	}{ % IF
