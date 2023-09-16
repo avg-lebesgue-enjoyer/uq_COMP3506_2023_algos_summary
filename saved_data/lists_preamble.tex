@@ -360,4 +360,96 @@
 	}{ % IF
 		(none yet)
 	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{adt:graph}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Graph Algorithms:
+			\begin{itemize}[nosep]
+				\item Graph Traversals:
+				\begin{itemize}[nosep]
+					\item Breadth-first search (algo \ref{alg:bfs})
+					\item Depth-first search (algo \ref{alg:dfs})
+				\end{itemize}
+				\item Graph Problem Solvers:
+				\begin{itemize}[nosep]
+					\item Strong connectivity solver (algo \ref{alg:strong_connectivity_solver})
+					\item Topological sort (algo \ref{alg:topological_sort})
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:edge_list_graph}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Graph Algorithms:
+			\begin{itemize}[nosep]
+				\item Graph Traversals:
+				\begin{itemize}[nosep]
+					\item Breadth-first search (algo \ref{alg:bfs})
+					\item Depth-first search (algo \ref{alg:dfs})
+				\end{itemize}
+				\item Graph Problem Solvers:
+				\begin{itemize}[nosep]
+					\item Strong connectivity solver (algo \ref{alg:strong_connectivity_solver})
+					\item Topological sort (algo \ref{alg:topological_sort})
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:adjacency_list_graph}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Graph Algorithms:
+			\begin{itemize}[nosep]
+				\item Graph Traversals:
+				\begin{itemize}[nosep]
+					\item Breadth-first search (algo \ref{alg:bfs})
+					\item Depth-first search (algo \ref{alg:dfs})
+				\end{itemize}
+				\item Graph Problem Solvers:
+				\begin{itemize}[nosep]
+					\item Strong connectivity solver (algo \ref{alg:strong_connectivity_solver})
+					\item Topological sort (algo \ref{alg:topological_sort})
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
+	\ifthenelse{
+		\equal{
+			#1
+		}{
+			\ref{dat:adjacency_matrix_graph}
+		}
+	}{ % IF
+		\begin{itemize}[nosep]
+			\item Graph Algorithms:
+			\begin{itemize}[nosep]
+				\item Graph Traversals:
+				\begin{itemize}[nosep]
+					\item Breadth-first search (algo \ref{alg:bfs})
+					\item Depth-first search (algo \ref{alg:dfs})
+				\end{itemize}
+				\item Graph Problem Solvers:
+				\begin{itemize}[nosep]
+					\item Strong connectivity solver (algo \ref{alg:strong_connectivity_solver})
+					\item Topological sort (algo \ref{alg:topological_sort})
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
+	}{} % empty ELSE block
 }
